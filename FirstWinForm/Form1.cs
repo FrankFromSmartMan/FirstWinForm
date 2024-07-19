@@ -5,6 +5,7 @@ namespace FirstWinForm
         public Form1()
         {
             InitializeComponent();
+            int myVarLabel = 0;        ;
         }
     }
 }
