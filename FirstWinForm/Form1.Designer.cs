@@ -43,10 +43,11 @@
             linkLabel1 = new LinkLabel();
             label1 = new Label();
             tabPage2 = new TabPage();
+            buttonDelete = new Button();
             buttonAdd = new Button();
             textBoxName = new TextBox();
             listBoxNames = new ListBox();
-            buttonDelete = new Button();
+            label2 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -61,7 +62,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(800, 450);
+            tabControl1.Size = new Size(925, 450);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -191,6 +192,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(label2);
             tabPage2.Controls.Add(buttonDelete);
             tabPage2.Controls.Add(buttonAdd);
             tabPage2.Controls.Add(textBoxName);
@@ -198,10 +200,20 @@
             tabPage2.Location = new Point(4, 46);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(792, 400);
+            tabPage2.Size = new Size(917, 400);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "陣列";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Location = new Point(341, 195);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(170, 91);
+            buttonDelete.TabIndex = 3;
+            buttonDelete.Text = "移除";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += ButtonDelete_Click;
             // 
             // buttonAdd
             // 
@@ -229,21 +241,20 @@
             listBoxNames.Size = new Size(226, 226);
             listBoxNames.TabIndex = 0;
             // 
-            // buttonDelete
+            // label2
             // 
-            buttonDelete.Location = new Point(341, 195);
-            buttonDelete.Name = "buttonDelete";
-            buttonDelete.Size = new Size(170, 91);
-            buttonDelete.TabIndex = 3;
-            buttonDelete.Text = "移除";
-            buttonDelete.UseVisualStyleBackColor = true;
-            buttonDelete.Click += ButtonDelete_Click;
+            label2.AutoSize = true;
+            label2.Location = new Point(520, 60);
+            label2.Name = "label2";
+            label2.Size = new Size(341, 38);
+            label2.TabIndex = 4;
+            label2.Text = "(也可以逗號分隔批次加入)";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(925, 450);
             Controls.Add(tabControl1);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
@@ -277,5 +288,6 @@
         private TextBox textBoxName;
         private ListBox listBoxNames;
         private Button buttonDelete;
+        private Label label2;
     }
 }

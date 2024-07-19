@@ -34,12 +34,27 @@ namespace FirstWinForm
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            // 讀取textbox的名字
-            string name = textBoxName.Text;
-            // 把名稱塞到listbox
-            listBoxNames.Items.Add(name);
-            // 清除textbox
-            textBoxName.Clear();
+            // 判斷textbox有沒有出現逗號
+            bool hasComma = textBoxName.Text.Contains(",");
+            // 如果沒有逗號，直接加進去textbox
+            if (hasComma == false)
+            {
+                // 讀取textbox的名字
+                string name = textBoxName.Text;
+                // 把名稱塞到listbox
+                listBoxNames.Items.Add(name);
+                // 清除textbox
+                textBoxName.Clear();
+            }
+            else
+            {
+                string[] names = textBoxName.Text.Split(",");
+                for (int i = 0; i < names.Length; i++)
+                {
+                    string name = names[i].Trim();
+                    listBoxNames.Items.Add(name);
+                }
+            }
         }
 
         private void ButtonDelete_Click(object sender, EventArgs e)
