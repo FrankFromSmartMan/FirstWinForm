@@ -30,21 +30,26 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            buttonGetNetTax = new Button();
+            labelNetIncome = new Label();
+            textBoxSpecialDeduction = new TextBox();
+            textBoxDeduction = new TextBox();
+            textBoxTaxFree = new TextBox();
+            textBoxTaxIncome = new TextBox();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            labelTaxIncome = new Label();
             linkLabel1 = new LinkLabel();
             label1 = new Label();
             tabPage2 = new TabPage();
-            labelTaxIncome = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            textBoxTaxIncome = new TextBox();
-            textBoxTaxFree = new TextBox();
-            textBoxDeduction = new TextBox();
-            textBoxSpecialDeduction = new TextBox();
-            labelNetIncome = new Label();
-            buttonGetNetTax = new Button();
+            buttonAdd = new Button();
+            textBoxName = new TextBox();
+            listBoxNames = new ListBox();
+            buttonDelete = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -81,6 +86,89 @@
             tabPage1.Text = "變數與條件";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // buttonGetNetTax
+            // 
+            buttonGetNetTax.Location = new Point(174, 327);
+            buttonGetNetTax.Name = "buttonGetNetTax";
+            buttonGetNetTax.Size = new Size(254, 52);
+            buttonGetNetTax.TabIndex = 11;
+            buttonGetNetTax.Text = "計算所得淨額";
+            buttonGetNetTax.UseVisualStyleBackColor = true;
+            buttonGetNetTax.Click += ButtonGetNetTax_Click;
+            // 
+            // labelNetIncome
+            // 
+            labelNetIncome.AutoSize = true;
+            labelNetIncome.Location = new Point(402, 111);
+            labelNetIncome.Name = "labelNetIncome";
+            labelNetIncome.Size = new Size(164, 38);
+            labelNetIncome.TabIndex = 10;
+            labelNetIncome.Text = "所得淨額 = ";
+            // 
+            // textBoxSpecialDeduction
+            // 
+            textBoxSpecialDeduction.Location = new Point(235, 265);
+            textBoxSpecialDeduction.Name = "textBoxSpecialDeduction";
+            textBoxSpecialDeduction.Size = new Size(125, 43);
+            textBoxSpecialDeduction.TabIndex = 9;
+            // 
+            // textBoxDeduction
+            // 
+            textBoxDeduction.Location = new Point(235, 216);
+            textBoxDeduction.Name = "textBoxDeduction";
+            textBoxDeduction.Size = new Size(125, 43);
+            textBoxDeduction.TabIndex = 8;
+            // 
+            // textBoxTaxFree
+            // 
+            textBoxTaxFree.Location = new Point(235, 164);
+            textBoxTaxFree.Name = "textBoxTaxFree";
+            textBoxTaxFree.Size = new Size(125, 43);
+            textBoxTaxFree.TabIndex = 7;
+            // 
+            // textBoxTaxIncome
+            // 
+            textBoxTaxIncome.Location = new Point(235, 111);
+            textBoxTaxIncome.Name = "textBoxTaxIncome";
+            textBoxTaxIncome.Size = new Size(125, 43);
+            textBoxTaxIncome.TabIndex = 6;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(52, 265);
+            label5.Name = "label5";
+            label5.Size = new Size(157, 38);
+            label5.TabIndex = 5;
+            label5.Text = "特別扣除額";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(52, 216);
+            label4.Name = "label4";
+            label4.Size = new Size(101, 38);
+            label4.TabIndex = 4;
+            label4.Text = "扣除額";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(52, 167);
+            label3.Name = "label3";
+            label3.Size = new Size(102, 38);
+            label3.TabIndex = 3;
+            label3.Text = "免稅額";
+            // 
+            // labelTaxIncome
+            // 
+            labelTaxIncome.AutoSize = true;
+            labelTaxIncome.Location = new Point(52, 114);
+            labelTaxIncome.Name = "labelTaxIncome";
+            labelTaxIncome.Size = new Size(130, 38);
+            labelTaxIncome.TabIndex = 2;
+            labelTaxIncome.Text = "所得稅額";
+            // 
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
@@ -90,7 +178,7 @@
             linkLabel1.TabIndex = 1;
             linkLabel1.TabStop = true;
             linkLabel1.Text = "參考連結";
-            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+            linkLabel1.LinkClicked += LinkLabel1_LinkClicked;
             // 
             // label1
             // 
@@ -103,6 +191,10 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(buttonDelete);
+            tabPage2.Controls.Add(buttonAdd);
+            tabPage2.Controls.Add(textBoxName);
+            tabPage2.Controls.Add(listBoxNames);
             tabPage2.Location = new Point(4, 46);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -111,88 +203,41 @@
             tabPage2.Text = "陣列";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // labelTaxIncome
+            // buttonAdd
             // 
-            labelTaxIncome.AutoSize = true;
-            labelTaxIncome.Location = new Point(52, 114);
-            labelTaxIncome.Name = "labelTaxIncome";
-            labelTaxIncome.Size = new Size(130, 38);
-            labelTaxIncome.TabIndex = 2;
-            labelTaxIncome.Text = "所得稅額";
+            buttonAdd.Location = new Point(341, 44);
+            buttonAdd.Name = "buttonAdd";
+            buttonAdd.Size = new Size(159, 74);
+            buttonAdd.TabIndex = 2;
+            buttonAdd.Text = "新增";
+            buttonAdd.UseVisualStyleBackColor = true;
+            buttonAdd.Click += ButtonAdd_Click;
             // 
-            // label3
+            // textBoxName
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(52, 167);
-            label3.Name = "label3";
-            label3.Size = new Size(102, 38);
-            label3.TabIndex = 3;
-            label3.Text = "免稅額";
+            textBoxName.Location = new Point(94, 60);
+            textBoxName.Name = "textBoxName";
+            textBoxName.Size = new Size(226, 43);
+            textBoxName.TabIndex = 1;
             // 
-            // label4
+            // listBoxNames
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(52, 216);
-            label4.Name = "label4";
-            label4.Size = new Size(101, 38);
-            label4.TabIndex = 4;
-            label4.Text = "扣除額";
+            listBoxNames.FormattingEnabled = true;
+            listBoxNames.ItemHeight = 37;
+            listBoxNames.Location = new Point(94, 130);
+            listBoxNames.Name = "listBoxNames";
+            listBoxNames.Size = new Size(226, 226);
+            listBoxNames.TabIndex = 0;
             // 
-            // label5
+            // buttonDelete
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(52, 265);
-            label5.Name = "label5";
-            label5.Size = new Size(157, 38);
-            label5.TabIndex = 5;
-            label5.Text = "特別扣除額";
-            // 
-            // textBoxTaxIncome
-            // 
-            textBoxTaxIncome.Location = new Point(235, 111);
-            textBoxTaxIncome.Name = "textBoxTaxIncome";
-            textBoxTaxIncome.Size = new Size(125, 43);
-            textBoxTaxIncome.TabIndex = 6;
-            // 
-            // textBoxTaxFree
-            // 
-            textBoxTaxFree.Location = new Point(235, 164);
-            textBoxTaxFree.Name = "textBoxTaxFree";
-            textBoxTaxFree.Size = new Size(125, 43);
-            textBoxTaxFree.TabIndex = 7;
-            // 
-            // textBoxDeduction
-            // 
-            textBoxDeduction.Location = new Point(235, 216);
-            textBoxDeduction.Name = "textBoxDeduction";
-            textBoxDeduction.Size = new Size(125, 43);
-            textBoxDeduction.TabIndex = 8;
-            // 
-            // textBoxSpecialDeduction
-            // 
-            textBoxSpecialDeduction.Location = new Point(235, 265);
-            textBoxSpecialDeduction.Name = "textBoxSpecialDeduction";
-            textBoxSpecialDeduction.Size = new Size(125, 43);
-            textBoxSpecialDeduction.TabIndex = 9;
-            // 
-            // labelNetIncome
-            // 
-            labelNetIncome.AutoSize = true;
-            labelNetIncome.Location = new Point(402, 111);
-            labelNetIncome.Name = "labelNetIncome";
-            labelNetIncome.Size = new Size(164, 38);
-            labelNetIncome.TabIndex = 10;
-            labelNetIncome.Text = "所得淨額 = ";
-            // 
-            // buttonGetNetTax
-            // 
-            buttonGetNetTax.Location = new Point(174, 327);
-            buttonGetNetTax.Name = "buttonGetNetTax";
-            buttonGetNetTax.Size = new Size(254, 52);
-            buttonGetNetTax.TabIndex = 11;
-            buttonGetNetTax.Text = "計算所得淨額";
-            buttonGetNetTax.UseVisualStyleBackColor = true;
-            buttonGetNetTax.Click += buttonGetNetTax_Click;
+            buttonDelete.Location = new Point(341, 195);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(170, 91);
+            buttonDelete.TabIndex = 3;
+            buttonDelete.Text = "移除";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += ButtonDelete_Click;
             // 
             // Form1
             // 
@@ -206,6 +251,8 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -226,5 +273,9 @@
         private TextBox textBoxDeduction;
         private TextBox textBoxTaxFree;
         private TextBox textBoxTaxIncome;
+        private Button buttonAdd;
+        private TextBox textBoxName;
+        private ListBox listBoxNames;
+        private Button buttonDelete;
     }
 }

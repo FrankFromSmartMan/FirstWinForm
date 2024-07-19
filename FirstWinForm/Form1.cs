@@ -9,7 +9,7 @@ namespace FirstWinForm
             InitializeComponent();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // 前往頁面: https://www.moneydj.com/tax/content.djhtm?a=02-04
             ProcessStartInfo psi = new ProcessStartInfo()
@@ -20,7 +20,7 @@ namespace FirstWinForm
             Process.Start(psi);
         }
 
-        private void buttonGetNetTax_Click(object sender, EventArgs e)
+        private void ButtonGetNetTax_Click(object sender, EventArgs e)
         {
             int taxIncome = int.Parse(textBoxTaxIncome.Text);
             int taxFree = int.Parse(textBoxTaxFree.Text);
@@ -30,6 +30,31 @@ namespace FirstWinForm
             int netIncome = taxIncome - taxFree - deduction - specialDeduction;
             // 修改所得淨額文字
             labelNetIncome.Text = "所得淨額 = " + netIncome;
+        }
+
+        private void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            // 讀取textbox的名字
+            string name = textBoxName.Text;
+            // 把名稱塞到listbox
+            listBoxNames.Items.Add(name);
+            // 清除textbox
+            textBoxName.Clear();
+        }
+
+        private void ButtonDelete_Click(object sender, EventArgs e)
+        {
+            // 先看使用者有沒有點listbox的名稱
+            int selectedIndex = listBoxNames.SelectedIndex;
+            if (selectedIndex == -1)
+            {
+                MessageBox.Show("請選擇一個名稱");
+                return;
+            }
+            // 有點的話刪除listbox那個名稱
+            listBoxNames.Items.RemoveAt(selectedIndex);
+            // 刪除成功跳個訊息
+            MessageBox.Show("刪除成功!!!");
         }
     }
 }
