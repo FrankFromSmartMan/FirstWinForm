@@ -49,11 +49,14 @@
             textBoxName = new TextBox();
             listBoxNames = new ListBox();
             tabPage3 = new TabPage();
+            dataGridView1 = new DataGridView();
             buttonConnect = new Button();
+            buttonGet = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -66,7 +69,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(925, 450);
+            tabControl1.Size = new Size(953, 508);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -86,7 +89,7 @@
             tabPage1.Location = new Point(4, 46);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(917, 400);
+            tabPage1.Size = new Size(945, 458);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "變數與條件";
             tabPage1.UseVisualStyleBackColor = true;
@@ -204,7 +207,7 @@
             tabPage2.Location = new Point(4, 46);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(917, 400);
+            tabPage2.Size = new Size(945, 458);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "陣列";
             tabPage2.UseVisualStyleBackColor = true;
@@ -256,13 +259,24 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(buttonGet);
+            tabPage3.Controls.Add(dataGridView1);
             tabPage3.Controls.Add(buttonConnect);
             tabPage3.Location = new Point(4, 46);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(917, 400);
+            tabPage3.Size = new Size(945, 458);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "資料庫連線";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(32, 146);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(881, 287);
+            dataGridView1.TabIndex = 1;
             // 
             // buttonConnect
             // 
@@ -274,11 +288,21 @@
             buttonConnect.UseVisualStyleBackColor = true;
             buttonConnect.Click += buttonConnect_Click;
             // 
+            // buttonGet
+            // 
+            buttonGet.Location = new Point(307, 35);
+            buttonGet.Name = "buttonGet";
+            buttonGet.Size = new Size(238, 78);
+            buttonGet.TabIndex = 2;
+            buttonGet.Text = "撈員工資料";
+            buttonGet.UseVisualStyleBackColor = true;
+            buttonGet.Click += buttonGet_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(925, 450);
+            ClientSize = new Size(953, 508);
             Controls.Add(tabControl1);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
@@ -289,6 +313,7 @@
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -316,5 +341,7 @@
         private Label label2;
         private TabPage tabPage3;
         private Button buttonConnect;
+        private DataGridView dataGridView1;
+        private Button buttonGet;
     }
 }

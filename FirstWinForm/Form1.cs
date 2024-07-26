@@ -1,3 +1,5 @@
+using Dapper;
+
 using System.Data.SqlClient;
 using System.Diagnostics;
 
@@ -5,6 +7,7 @@ namespace FirstWinForm
 {
     public partial class Form1 : Form
     {
+        public string ConnString { get; set; }
         public Form1()
         {
             InitializeComponent();
@@ -76,13 +79,46 @@ namespace FirstWinForm
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            // 測試是否可以連到資料庫
+            try
+            {
+                // 測試是否可以連到資料庫
+                SqlConnection conn = new SqlConnection();
+                conn.ConnectionString = @"
+                        Server=localhost;
+                        Database=HRIS;
+                        User Id=SYSADM;
+                        Password=SYSADM";
+                this.ConnString = conn.ConnectionString;
+                // 使用 builder
+                //SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                //// 伺服器
+                //builder.DataSource = "localhost";
+                //builder.InitialCatalog = "HRIS";
+                //builder.UserID = "SYSADM";
+                //builder.Password = "SYSADM";
+
+                //conn.ConnectionString = builder.ConnectionString;
+
+                // 可以或失敗都跳出訊息
+                conn.Open();
+                MessageBox.Show("連線成功!");
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("發生錯誤: " + ex.Message + "哪裡錯?" + ex.StackTrace);
+            }
+        }
+
+        private void buttonGet_Click(object sender, EventArgs e)
+        {
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Server=localhost;Database=HRIS;User Id=SYSADM;Password=SYSADM";
-            // 可以或失敗都跳出訊息
+            conn.ConnectionString = ConnString;
             conn.Open();
-            MessageBox.Show("連線成功!");
+            List<Employee> employees = new List<Employee>();
+            employees = conn.Query<Employee>("Select * From Employee").ToList();
             conn.Close();
+            dataGridView1.DataSource = employees;
         }
     }
 }
