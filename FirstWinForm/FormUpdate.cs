@@ -15,8 +15,9 @@ namespace FirstWinForm
 {
     public partial class FormUpdate : Form
     {
-        // 建構子 constructor
+        // Employee 容器
         Employee employee;
+        // 建構子 constructor
         public FormUpdate(Employee employee)
         {
             InitializeComponent();
@@ -38,11 +39,13 @@ namespace FirstWinForm
             SqlConnection conn = new SqlConnection(EmployeeService.ConnString);
             conn.Open();
             string employeCd = this.textBox1.Text; // EmployeCd
-            string updatedChineseName = textBox2.Text;
-            string updatedEnglishName = textBox3.Text;
+            string updatedChineseName = textBox2.Text; // ChineseName
+            string updatedEnglishName = textBox3.Text; // EnglishName
+            // 尷尬，沒想到 SQL Injection 想法也可以，但還是建議使用參數比較安全
             conn.Execute("Update Employee Set ChineseName = '" + updatedChineseName + "' , EnglishName = @updatedEnglishName Where EmployeCd = @EmployeCd", 
                 new { updatedEnglishName, employeCd }
                 );
+            conn.Close();
             MessageBox.Show("存檔成功");
             Close();
         }

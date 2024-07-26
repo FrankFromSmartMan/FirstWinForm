@@ -120,11 +120,11 @@ namespace FirstWinForm
             employees = conn.Query<Employee>("Select * From Employee").ToList();
             conn.Close();
             dataGridView1.DataSource = employees;
-            // hide birthday column
+            // hide birthday column 隱藏欄位
             dataGridView1.Columns["Birthday"].Visible = false;
             // set so whole row is selected 讓整行被選取
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            // can only select one row at a tim
+            // can only select one row at a time 不可以多選
             dataGridView1.MultiSelect = false;
             // read only
             dataGridView1.ReadOnly = true;
@@ -135,7 +135,7 @@ namespace FirstWinForm
             // check if a row is selected
             bool isSelected = dataGridView1.SelectedRows.Count > 0;
             // get the Employee data from row
-            //// 把員工資料抓出來
+            // 把員工資料抓出來
             Employee employee = new Employee();
             if (isSelected)
             {
@@ -166,6 +166,7 @@ namespace FirstWinForm
             string employeeName = dataGridView1.SelectedRows[0].Cells["ChineseName"].Value.ToString();
             // 跳訊息確定是否要刪除
             var result = MessageBox.Show("確定要刪除" + employeeName + "嗎?", "刪除員工", MessageBoxButtons.YesNo);
+            // 如果選NO就結束
             if (result == DialogResult.No)
             {
                 return;
