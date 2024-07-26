@@ -89,6 +89,7 @@ namespace FirstWinForm
                         User Id=SYSADM;
                         Password=SYSADM";
                 this.ConnString = conn.ConnectionString;
+                EmployeeService.ConnString = conn.ConnectionString;
                 // 使用 builder
                 //SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 //// 伺服器
@@ -121,6 +122,58 @@ namespace FirstWinForm
             dataGridView1.DataSource = employees;
             // hide birthday column
             dataGridView1.Columns["Birthday"].Visible = false;
+            // set so whole row is selected 讓整行被選取
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            // can only select one row at a tim
+            dataGridView1.MultiSelect = false;
+            // read only
+            dataGridView1.ReadOnly = true;
+        }
+
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            // check if a row is selected
+            bool isSelected = dataGridView1.SelectedRows.Count > 0;
+            // get the Employee data from row
+            //// 把員工資料抓出來
+            Employee employee = new Employee();
+            if (isSelected)
+            {
+                employee.ChineseName = dataGridView1.SelectedRows[0].Cells["ChineseName"].Value.ToString();
+                employee.EnglishName = dataGridView1.SelectedRows[0].Cells["EnglishName"].Value.ToString();
+                employee.EMPLOYECD = dataGridView1.SelectedRows[0].Cells["EMPLOYECD"].Value.ToString();
+            }
+            else
+            {
+                MessageBox.Show("請選擇一個員工");
+                return;
+            }
+            FormUpdate formUpdate = new FormUpdate(employee);
+            formUpdate.ShowDialog();
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            // check if a row is selected
+            bool isSelected = dataGridView1.SelectedRows.Count > 0;
+            // 檢查有沒有選一行資料列
+            if (isSelected == false)
+            {
+                MessageBox.Show("請選擇一個員工");
+                return;
+            }
+            string employeCd = dataGridView1.SelectedRows[0].Cells["EmployeCd"].Value.ToString();
+            string employeeName = dataGridView1.SelectedRows[0].Cells["ChineseName"].Value.ToString();
+            // 跳訊息確定是否要刪除
+            var result = MessageBox.Show("確定要刪除" + employeeName + "嗎?", "刪除員工", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+            SqlConnection conn = new SqlConnection(ConnString);
+            conn.Execute("Delete From Employee Where Employecd = @EmployeCd", new { employeCd });
+            MessageBox.Show("刪除成功");
+            conn.Close();
         }
     }
 }

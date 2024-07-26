@@ -49,9 +49,11 @@
             textBoxName = new TextBox();
             listBoxNames = new ListBox();
             tabPage3 = new TabPage();
+            buttonUpdate = new Button();
+            buttonGet = new Button();
             dataGridView1 = new DataGridView();
             buttonConnect = new Button();
-            buttonGet = new Button();
+            buttonRemove = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -259,6 +261,8 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(buttonRemove);
+            tabPage3.Controls.Add(buttonUpdate);
             tabPage3.Controls.Add(buttonGet);
             tabPage3.Controls.Add(dataGridView1);
             tabPage3.Controls.Add(buttonConnect);
@@ -268,6 +272,26 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "資料庫連線";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // buttonUpdate
+            // 
+            buttonUpdate.Location = new Point(568, 35);
+            buttonUpdate.Name = "buttonUpdate";
+            buttonUpdate.Size = new Size(143, 71);
+            buttonUpdate.TabIndex = 3;
+            buttonUpdate.Text = "編輯";
+            buttonUpdate.UseVisualStyleBackColor = true;
+            buttonUpdate.Click += buttonUpdate_Click;
+            // 
+            // buttonGet
+            // 
+            buttonGet.Location = new Point(307, 35);
+            buttonGet.Name = "buttonGet";
+            buttonGet.Size = new Size(238, 78);
+            buttonGet.TabIndex = 2;
+            buttonGet.Text = "撈員工資料";
+            buttonGet.UseVisualStyleBackColor = true;
+            buttonGet.Click += buttonGet_Click;
             // 
             // dataGridView1
             // 
@@ -288,15 +312,15 @@
             buttonConnect.UseVisualStyleBackColor = true;
             buttonConnect.Click += buttonConnect_Click;
             // 
-            // buttonGet
+            // buttonRemove
             // 
-            buttonGet.Location = new Point(307, 35);
-            buttonGet.Name = "buttonGet";
-            buttonGet.Size = new Size(238, 78);
-            buttonGet.TabIndex = 2;
-            buttonGet.Text = "撈員工資料";
-            buttonGet.UseVisualStyleBackColor = true;
-            buttonGet.Click += buttonGet_Click;
+            buttonRemove.Location = new Point(736, 36);
+            buttonRemove.Name = "buttonRemove";
+            buttonRemove.Size = new Size(157, 70);
+            buttonRemove.TabIndex = 4;
+            buttonRemove.Text = "刪除";
+            buttonRemove.UseVisualStyleBackColor = true;
+            buttonRemove.Click += buttonRemove_Click;
             // 
             // Form1
             // 
@@ -343,5 +367,7 @@
         private Button buttonConnect;
         private DataGridView dataGridView1;
         private Button buttonGet;
+        private Button buttonUpdate;
+        private Button buttonRemove;
     }
 }

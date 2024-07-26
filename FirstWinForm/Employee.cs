@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FirstWinForm
 {
-    internal class Employee
+    // accessiblity public > internal > private
+    public class Employee
     {
         public string ChineseName { get; set; }
         public string EnglishName { get; set; }
