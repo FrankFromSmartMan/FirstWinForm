@@ -17,7 +17,9 @@ namespace FirstWinForm
         {
             get
             {
-                return Birthday.ToString("yyyy/MM/dd");
+                return 
+                 Birthday.ToString().Substring(0, 4) + "/" + Birthday.ToString().Substring(4, 2) + "/" +
+                 Birthday.ToString().Substring(6, 2);
             }
         }
     }

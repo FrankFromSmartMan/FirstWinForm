@@ -119,6 +119,8 @@ namespace FirstWinForm
             employees = conn.Query<Employee>("Select * From Employee").ToList();
             conn.Close();
             dataGridView1.DataSource = employees;
+            // hide birthday column
+            dataGridView1.Columns["Birthday"].Visible = false;
         }
     }
 }
