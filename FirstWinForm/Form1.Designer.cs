@@ -43,20 +43,24 @@
             linkLabel1 = new LinkLabel();
             label1 = new Label();
             tabPage2 = new TabPage();
+            label2 = new Label();
             buttonDelete = new Button();
             buttonAdd = new Button();
             textBoxName = new TextBox();
             listBoxNames = new ListBox();
-            label2 = new Label();
+            tabPage3 = new TabPage();
+            buttonConnect = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
+            tabPage3.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabControl1.Location = new Point(0, 0);
@@ -82,7 +86,7 @@
             tabPage1.Location = new Point(4, 46);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(792, 400);
+            tabPage1.Size = new Size(917, 400);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "變數與條件";
             tabPage1.UseVisualStyleBackColor = true;
@@ -205,6 +209,15 @@
             tabPage2.Text = "陣列";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(520, 60);
+            label2.Name = "label2";
+            label2.Size = new Size(341, 38);
+            label2.TabIndex = 4;
+            label2.Text = "(也可以逗號分隔批次加入)";
+            // 
             // buttonDelete
             // 
             buttonDelete.Location = new Point(341, 195);
@@ -241,14 +254,25 @@
             listBoxNames.Size = new Size(226, 226);
             listBoxNames.TabIndex = 0;
             // 
-            // label2
+            // tabPage3
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(520, 60);
-            label2.Name = "label2";
-            label2.Size = new Size(341, 38);
-            label2.TabIndex = 4;
-            label2.Text = "(也可以逗號分隔批次加入)";
+            tabPage3.Controls.Add(buttonConnect);
+            tabPage3.Location = new Point(4, 46);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(917, 400);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "資料庫連線";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // buttonConnect
+            // 
+            buttonConnect.Location = new Point(32, 35);
+            buttonConnect.Name = "buttonConnect";
+            buttonConnect.Size = new Size(251, 78);
+            buttonConnect.TabIndex = 0;
+            buttonConnect.Text = "測試連線";
+            buttonConnect.UseVisualStyleBackColor = true;
+            buttonConnect.Click += buttonConnect_Click;
             // 
             // Form1
             // 
@@ -264,6 +288,7 @@
             tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
+            tabPage3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -289,5 +314,7 @@
         private ListBox listBoxNames;
         private Button buttonDelete;
         private Label label2;
+        private TabPage tabPage3;
+        private Button buttonConnect;
     }
 }

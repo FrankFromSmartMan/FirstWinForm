@@ -1,3 +1,4 @@
+using System.Data.SqlClient;
 using System.Diagnostics;
 
 namespace FirstWinForm
@@ -7,6 +8,7 @@ namespace FirstWinForm
         public Form1()
         {
             InitializeComponent();
+
         }
 
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -70,6 +72,17 @@ namespace FirstWinForm
             listBoxNames.Items.RemoveAt(selectedIndex);
             // 刪除成功跳個訊息
             MessageBox.Show("刪除成功!!!");
+        }
+
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
+            // 測試是否可以連到資料庫
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString = "Server=localhost;Database=HRIS;User Id=SYSADM;Password=SYSADM";
+            // 可以或失敗都跳出訊息
+            conn.Open();
+            MessageBox.Show("連線成功!");
+            conn.Close();
         }
     }
 }
