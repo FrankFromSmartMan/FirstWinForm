@@ -35,12 +35,15 @@
             buttonOpenFile = new Button();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            tabPage2 = new TabPage();
             listBoxFileData = new ListBox();
+            tabPage2 = new TabPage();
+            dataGridViewFileData = new DataGridView();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewFileData).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -98,7 +101,6 @@
             buttonOpenFile.TabIndex = 0;
             buttonOpenFile.Text = "讀取檔案";
             buttonOpenFile.UseVisualStyleBackColor = true;
-            buttonOpenFile.Click += buttonOpenFile_Click_1;
             // 
             // tabControl1
             // 
@@ -123,16 +125,6 @@
             tabPage1.Text = "原始內容";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
-            // 
-            tabPage2.Location = new Point(4, 40);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(786, 300);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "表格顯示";
-            tabPage2.UseVisualStyleBackColor = true;
-            // 
             // listBoxFileData
             // 
             listBoxFileData.Dock = DockStyle.Fill;
@@ -142,6 +134,27 @@
             listBoxFileData.Name = "listBoxFileData";
             listBoxFileData.Size = new Size(780, 294);
             listBoxFileData.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(dataGridViewFileData);
+            tabPage2.Location = new Point(4, 40);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(786, 300);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "表格顯示";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewFileData
+            // 
+            dataGridViewFileData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewFileData.Dock = DockStyle.Fill;
+            dataGridViewFileData.Location = new Point(3, 3);
+            dataGridViewFileData.Name = "dataGridViewFileData";
+            dataGridViewFileData.RowHeadersWidth = 51;
+            dataGridViewFileData.Size = new Size(780, 294);
+            dataGridViewFileData.TabIndex = 0;
             // 
             // FormFiles
             // 
@@ -157,6 +170,8 @@
             panel1.PerformLayout();
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewFileData).EndInit();
             ResumeLayout(false);
         }
 
@@ -171,5 +186,6 @@
         private TabPage tabPage2;
         private Label labelFileName;
         private ListBox listBoxFileData;
+        private DataGridView dataGridViewFileData;
     }
 }

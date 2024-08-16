@@ -31,20 +31,31 @@ namespace FirstWinForm
             {
                 // 顯示剛抓檔案的名稱
                 labelFileName.Text = openFileDialog.FileName;
-                // 讀取檔案的內容 (讀取的每一行塞到data字串陣列string[])
-                string[] items = File.ReadAllLines(openFileDialog.FileName);
+                // 讀取檔案的內容 (讀取的每一行塞到data字串陣列string[]) 950 	big5
+                string[] lines = File.ReadAllLines(openFileDialog.FileName);
                 // 先清空listbox的items
                 listBoxFileData.Items.Clear();
-                foreach (var item in items)
+                foreach (var item in lines)
                 {
                     listBoxFileData.Items.Add(item);
                 }
+                // 把資料呈現到dataGridView 
+                // 先建立陣列item
+                List<Item> items = new List<Item>();
+                // 跑迴圈一個一個到進去上面的item陣列
+                for (var i = 0; i < lines.Length;  i++)
+                {
+                    var splitData = lines[i].Split(","); // 用後號分割，分割完後回傳字串陣列string[]
+                    Item item = new Item();
+                    item.Name = splitData[0]; // 第一個是名稱
+                    item.Type = splitData[1];
+                    item.MarketValue = splitData[2];
+                    item.Quantity = splitData[3];
+                    item.Description = splitData[4];
+                    items.Add(item); // 把建立好的 item 加到 items 陣列
+                }
+                dataGridViewFileData.DataSource = items; // 把 items 顯示在 grid 上面
             }
-        }
-
-        private void buttonOpenFile_Click_1(object sender, EventArgs e)
-        {
-
         }
     }
 }
