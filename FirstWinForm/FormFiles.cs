@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -70,6 +71,7 @@ namespace FirstWinForm
         {
             // 將匯入的資料再轉出去一次，但是可以指定路徑
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
             // 開啟存檔案dialog
             var result = saveFileDialog.ShowDialog();
             // 建立空的字串行資料
@@ -87,8 +89,16 @@ namespace FirstWinForm
                     lines.Add(singleLineData);
                 }
                 // 把剛剛匯入的資料寫道指定檔案中
-                File.WriteAllLines(filePath, lines);
+                File.WriteAllLines(filePath, lines, Encoding.UTF8);
                 MessageBox.Show("儲存到" + filePath + "了!");
+                // 要先引用在最上方 using System.Diagnostics
+                ProcessStartInfo processStartInfo = new ProcessStartInfo()
+                {
+                    FileName = filePath,
+                    UseShellExecute = true
+                };
+                // 開啟檔案
+                Process.Start(processStartInfo);
             }
         }
     }
