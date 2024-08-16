@@ -26,6 +26,14 @@ namespace FirstWinForm
 
         private void ButtonOpenFile_Click(object? sender, EventArgs e)
         {
+            // OpenAndReadFileWithReadAllLines();
+            OpenAndReadFileWithStreamReader();   
+        }
+        /// <summary>
+        /// 使用ReadAllLines讀取檔案
+        /// </summary>
+        void OpenAndReadFileWithReadAllLines()
+        {
             // 開啟檔案dialog
             OpenFileDialog openFileDialog = new OpenFileDialog();
             // 設定檔案類型 (CSV)
@@ -37,7 +45,7 @@ namespace FirstWinForm
                 // 顯示剛抓檔案的名稱
                 labelFileName.Text = openFileDialog.FileName;
                 // 讀取檔案的內容 (讀取的每一行塞到data字串陣列string[]) 950 	big5
-                string[] lines = File.ReadAllLines(openFileDialog.FileName);
+                string[] lines = File.ReadAllLines(openFileDialog.FileName, Encoding.Default);
                 // 先清空listbox的items
                 listBoxFileData.Items.Clear();
                 foreach (var line in lines)
@@ -66,7 +74,31 @@ namespace FirstWinForm
                 dataGridViewFileData.DataSource = items; // 把 items 顯示在 grid 上面
             }
         }
-
+        /// <summary>
+        /// 使用StreamReader讀取檔案
+        /// </summary>
+        void OpenAndReadFileWithStreamReader()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV files (*.csv)|*.csv";
+            var result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                labelFileName.Text = openFileDialog.FileName;
+                // 用StreamReader讀取檔案
+                using (StreamReader sr = new StreamReader(openFileDialog.FileName, true))
+                {
+                    // 先清空listbox的items
+                    listBoxFileData.Items.Clear();
+                    // 讀取檔案的內容
+                    string? line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        listBoxFileData.Items.Add(line);
+                    }
+                }
+            }
+        }
         private void buttonCreateFile_Click(object sender, EventArgs e)
         {
             // 將匯入的資料再轉出去一次，但是可以指定路徑
