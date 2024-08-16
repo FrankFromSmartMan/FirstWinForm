@@ -91,6 +91,7 @@
             buttonCreateFile.TabIndex = 1;
             buttonCreateFile.Text = "產出檔案";
             buttonCreateFile.UseVisualStyleBackColor = true;
+            buttonCreateFile.Click += buttonCreateFile_Click;
             // 
             // buttonOpenFile
             // 
