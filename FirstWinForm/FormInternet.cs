@@ -46,7 +46,25 @@ namespace FirstWinForm
                     listBoxFileData.Items.Add(line);
                 }
                 // 用類別把資料接起來
-                // List<StockData> stocks = new List<StockData>();
+                List<StockData> stocks = new List<StockData>();
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        continue;
+                    }
+                    var items = lines[i].Split(",").ToList();
+                    if (items.Count < 2)
+                    {
+                        continue;
+                    }
+                    StockData stockData = new StockData();
+                    stockData.ID = items[0].Replace("\"", "");
+                    stockData.StockName = items[1].Replace("\"", "");
+                    // Generate rest
+                    stocks.Add(stockData);
+                }
+                dataGridViewData.DataSource = stocks;
             }
         }
     }

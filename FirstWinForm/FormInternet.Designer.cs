@@ -32,6 +32,8 @@
             textBoxURL = new TextBox();
             label1 = new Label();
             listBoxFileData = new ListBox();
+            dataGridViewData = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewData).BeginInit();
             SuspendLayout();
             // 
             // buttonDownload
@@ -71,11 +73,21 @@
             listBoxFileData.Size = new Size(716, 264);
             listBoxFileData.TabIndex = 3;
             // 
+            // dataGridViewData
+            // 
+            dataGridViewData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewData.Location = new Point(38, 479);
+            dataGridViewData.Name = "dataGridViewData";
+            dataGridViewData.RowHeadersWidth = 51;
+            dataGridViewData.Size = new Size(747, 314);
+            dataGridViewData.TabIndex = 4;
+            // 
             // FormInternet
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1510, 826);
+            Controls.Add(dataGridViewData);
             Controls.Add(listBoxFileData);
             Controls.Add(label1);
             Controls.Add(textBoxURL);
@@ -83,6 +95,7 @@
             Name = "FormInternet";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "網路處理";
+            ((System.ComponentModel.ISupportInitialize)dataGridViewData).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -93,5 +106,6 @@
         private TextBox textBoxURL;
         private Label label1;
         private ListBox listBoxFileData;
+        private DataGridView dataGridViewData;
     }
 }
