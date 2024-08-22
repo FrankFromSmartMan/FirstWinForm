@@ -15,6 +15,7 @@ namespace FirstWinForm
 {
     public partial class FormInternet : Form
     {
+        public List<StockData> StockDatas { get; set; } = new List<StockData>();
         public FormInternet()
         {
             InitializeComponent();
@@ -75,7 +76,9 @@ namespace FirstWinForm
                     // Generate rest
                     stockData.StockTraded = int.TryParse(items[2], out _) ? int.Parse(items[2]) : 0;
                     stockData.HighestAmount = double.TryParse(items[5], out _) ? double.Parse(items[5]) : 0;
+                    stockData.AmountChanged = double.TryParse(items[8], out _) ? double.Parse(items[8]) : 0;
                     stocks.Add(stockData);
+                    StockDatas.Add(stockData);
                 }
                 dataGridViewData.DataSource = stocks;
             }
@@ -85,13 +88,36 @@ namespace FirstWinForm
         {
             using (var workbook = new XLWorkbook())
             {
-                var worksheet = workbook.Worksheets.Add("Sample Sheet");
-                worksheet.Cell("A1").Value = "Hello World!";
-                worksheet.Cell("A2").FormulaA1 = "=MID(A1, 7, 5)";
-                workbook.SaveAs("HelloWorld.xlsx");
+                var worksheet = workbook.Worksheets.Add("股票資訊");
+                worksheet.Cell("A1").Value = "證券代號";
+                worksheet.Cell("B1").Value = "證券名稱";
+                worksheet.Cell("C1").Value = "成交股數";
+                worksheet.Cell("D1").Value = "最高金額";
+                worksheet.Cell("E1").Value = "漲價跌差";
+                for (int i = 0; i < StockDatas.Count; i++)
+                {
+                    var stock = StockDatas[i];
+                    worksheet.Cell(i + 2, 1).Value = stock.ID;
+                    worksheet.Cell(i + 2, 2).Value = stock.StockName; 
+                    worksheet.Cell(i + 2, 3).Value = stock.StockTraded; 
+                    worksheet.Cell(i + 2, 4).Value = stock.HighestAmount; 
+                    
+                    worksheet.Cell(i + 2, 5).Value = stock.AmountChanged;
+                    if (stock.AmountChanged > 0)
+                    {
+                        // set to green
+                        worksheet.Cell(i + 2, 5).Style.Font.FontColor = XLColor.Green;
+                    }
+                    else
+                    {
+                        worksheet.Cell(i + 2, 5).Style.Font.FontColor = XLColor.Red;
+
+                    }
+                }
+                workbook.SaveAs("stockReport.xlsx");
                 ProcessStartInfo psi = new ProcessStartInfo()
                 {
-                    FileName = "HelloWorld.xlsx",
+                    FileName = "stockReport.xlsx",
                     UseShellExecute = true
                 };
                 Process.Start(psi);
