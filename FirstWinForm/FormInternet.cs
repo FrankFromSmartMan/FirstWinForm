@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +18,13 @@ namespace FirstWinForm
         public FormInternet()
         {
             InitializeComponent();
+            foreach (var control in Controls)
+            {
+                if (control is Button)
+                {
+                    ((Button)control).Font = new Font(FontFamily.GenericSerif, 14);
+                }
+            }
         }
 
         private void buttonDownload_Click(object sender, EventArgs e)
@@ -30,12 +39,12 @@ namespace FirstWinForm
                 File.WriteAllText("stock.csv", data);
 
                 // 直接開啟檔案
-                ProcessStartInfo psi = new ProcessStartInfo()
-                {
-                    FileName = "stock.csv",
-                    UseShellExecute = true
-                };
-                Process.Start(psi);
+                //ProcessStartInfo psi = new ProcessStartInfo()
+                //{
+                //    FileName = "stock.csv",
+                //    UseShellExecute = true
+                //};
+                //Process.Start(psi);
 
                 // 根據換行符號/r/n切割把資料塞到陣列中
                 List<string> lines = new List<string>();
@@ -47,8 +56,10 @@ namespace FirstWinForm
                 }
                 // 用類別把資料接起來
                 List<StockData> stocks = new List<StockData>();
+
                 for (int i = 0; i < lines.Count; i++)
                 {
+                    lines[i] = lines[i].Replace("\"", "");
                     if (i == 0)
                     {
                         continue;
@@ -59,12 +70,31 @@ namespace FirstWinForm
                         continue;
                     }
                     StockData stockData = new StockData();
-                    stockData.ID = items[0].Replace("\"", "");
-                    stockData.StockName = items[1].Replace("\"", "");
+                    stockData.ID = items[0];
+                    stockData.StockName = items[1];
                     // Generate rest
+                    stockData.StockTraded = int.TryParse(items[2], out _) ? int.Parse(items[2]) : 0;
+                    stockData.HighestAmount = double.TryParse(items[5], out _) ? double.Parse(items[5]) : 0;
                     stocks.Add(stockData);
                 }
                 dataGridViewData.DataSource = stocks;
+            }
+        }
+
+        private void buttonExportExcel_Click(object sender, EventArgs e)
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Sample Sheet");
+                worksheet.Cell("A1").Value = "Hello World!";
+                worksheet.Cell("A2").FormulaA1 = "=MID(A1, 7, 5)";
+                workbook.SaveAs("HelloWorld.xlsx");
+                ProcessStartInfo psi = new ProcessStartInfo()
+                {
+                    FileName = "HelloWorld.xlsx",
+                    UseShellExecute = true
+                };
+                Process.Start(psi);
             }
         }
     }

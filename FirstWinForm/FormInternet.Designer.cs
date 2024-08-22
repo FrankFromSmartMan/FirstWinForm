@@ -33,6 +33,7 @@
             label1 = new Label();
             listBoxFileData = new ListBox();
             dataGridViewData = new DataGridView();
+            buttonExportExcel = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewData).BeginInit();
             SuspendLayout();
             // 
@@ -82,11 +83,23 @@
             dataGridViewData.Size = new Size(747, 314);
             dataGridViewData.TabIndex = 4;
             // 
+            // buttonExportExcel
+            // 
+            buttonExportExcel.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            buttonExportExcel.Location = new Point(285, 80);
+            buttonExportExcel.Name = "buttonExportExcel";
+            buttonExportExcel.Size = new Size(243, 87);
+            buttonExportExcel.TabIndex = 5;
+            buttonExportExcel.Text = "轉出Excel";
+            buttonExportExcel.UseVisualStyleBackColor = true;
+            buttonExportExcel.Click += buttonExportExcel_Click;
+            // 
             // FormInternet
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1510, 826);
+            Controls.Add(buttonExportExcel);
             Controls.Add(dataGridViewData);
             Controls.Add(listBoxFileData);
             Controls.Add(label1);
@@ -107,5 +120,6 @@
         private Label label1;
         private ListBox listBoxFileData;
         private DataGridView dataGridViewData;
+        private Button buttonExportExcel;
     }
 }
