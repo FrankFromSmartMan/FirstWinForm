@@ -48,8 +48,10 @@ namespace FirstWinForm
                     {
                         worksheet.Cell(1, i + 1).Value = headerNames[i];
                     }
+                    // 直接把陣列放到整個工作表
                     worksheet.Cell(2, 1).InsertData(parkingLotAPIResponse.ParkingLots);
                     var worksheet2 = workbook.Worksheets.Add("停車場統計資料");
+                    // 統計前十名的停車格數量最多的停車場
                     var top10 = parkingLotAPIResponse.ParkingLots.OrderByDescending(p => p.TotalSpace).Take(10).ToList();
                     worksheet2.Cell(1, 1).Value = "停車場名稱";
                     worksheet2.Cell(1, 2).Value = "地址";
@@ -60,8 +62,19 @@ namespace FirstWinForm
                         worksheet2.Cell(i + 2, 2).Value = top10[i].Address;
                         worksheet2.Cell(i + 2, 3).Value = top10[i].TotalSpace;
                     }
+                    // 使用區域groupby資料放到不同活頁
+                    var groupByArea = parkingLotAPIResponse.ParkingLots.GroupBy(p => p.AreaName).Select(p => (p.Key));
+                    foreach (var areaName in groupByArea)
+                    {
+                        var worksheetByArea = workbook.Worksheets.Add(areaName);
+                        var parkLotsByArea = parkingLotAPIResponse.ParkingLots.Where(p => p.AreaName == areaName).ToList();
+                        for (int i = 0;i < headerNames.Count;i++)
+                        {
+                            worksheetByArea.Cell(1, i + 1).Value = headerNames[i];
+                        }
+                        worksheetByArea.Cell(2, 1).InsertData(parkLotsByArea);
+                    }
                     workbook.SaveAs("Parklot.xlsx");
-
                     ProcessStartInfo psi = new ProcessStartInfo()
                     {
                         FileName = "Parklot.xlsx",
