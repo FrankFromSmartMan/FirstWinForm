@@ -30,7 +30,7 @@ namespace FirstWinForm
             using (HttpClient http = new HttpClient())
             {
                 var result = http.GetStringAsync(url).Result;
-
+                // 使用Deserialize反序列化JSON資料，轉成物件
                 ParkingLotAPIResponse parkingLotAPIResponse = JsonSerializer.Deserialize<ParkingLotAPIResponse>(result) ?? new ParkingLotAPIResponse();
                 dataGridView1.DataSource = parkingLotAPIResponse.ParkingLots;
               
@@ -42,14 +42,16 @@ namespace FirstWinForm
                 }
                 using (ClosedXML.Excel.XLWorkbook workbook = new ClosedXML.Excel.XLWorkbook())
                 {
-                    // handle export
+                    // 新增活頁1
                     var worksheet = workbook.Worksheets.Add("原始停車資料");
+                    // 把標題放到第一列
                     for (int i = 0; i < headerNames.Count; i++)
                     {
                         worksheet.Cell(1, i + 1).Value = headerNames[i];
                     }
                     // 直接把陣列放到整個工作表
                     worksheet.Cell(2, 1).InsertData(parkingLotAPIResponse.ParkingLots);
+                    // 新增活頁2
                     var worksheet2 = workbook.Worksheets.Add("停車場統計資料");
                     // 統計前十名的停車格數量最多的停車場
                     var top10 = parkingLotAPIResponse.ParkingLots.OrderByDescending(p => p.TotalSpace).Take(10).ToList();
@@ -62,11 +64,13 @@ namespace FirstWinForm
                         worksheet2.Cell(i + 2, 2).Value = top10[i].Address;
                         worksheet2.Cell(i + 2, 3).Value = top10[i].TotalSpace;
                     }
-                    // 使用區域groupby資料放到不同活頁
+                    // 使用區域groupby資料放到不同活頁 (用Select去把Key取出)
                     var groupByArea = parkingLotAPIResponse.ParkingLots.GroupBy(p => p.AreaName).Select(p => (p.Key));
                     foreach (var areaName in groupByArea)
                     {
+                        // 根據區域名稱新增活頁
                         var worksheetByArea = workbook.Worksheets.Add(areaName);
+                        // 用Where去篩選出區域名稱相同的停車場
                         var parkLotsByArea = parkingLotAPIResponse.ParkingLots.Where(p => p.AreaName == areaName).ToList();
                         for (int i = 0;i < headerNames.Count;i++)
                         {
