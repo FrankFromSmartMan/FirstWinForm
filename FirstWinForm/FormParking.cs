@@ -29,8 +29,22 @@ namespace FirstWinForm
             using (HttpClient http = new HttpClient())
             {
                 var result = http.GetStringAsync(url).Result;
+
                 ParkingLotAPIResponse parkingLotAPIResponse = JsonSerializer.Deserialize<ParkingLotAPIResponse>(result) ?? new ParkingLotAPIResponse();
                 dataGridView1.DataSource = parkingLotAPIResponse.ParkingLots;
+              
+                List<string> headerNames = ["停車場編號","區域ID","區域名稱","停車場名稱","總停車格數量","狀態","剩餘空間","價格資訊","說明","位址","經度","緯度"];
+                // set datagridview header names to above
+                for (int i = 0; i < headerNames.Count; i++)
+                {
+                    dataGridView1.Columns[i].HeaderText = headerNames[i];
+                }
+                using (ClosedXML.Excel.XLWorkbook workbook = new ClosedXML.Excel.XLWorkbook())
+                {
+                    workbook.SaveAs("停車場資訊.xlsx");
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo() { FileName = "停車場資訊.xlsx", UseShellExecute = true });
+                    
+                };
                 MessageBox.Show("下載成功");
             }
         }

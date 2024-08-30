@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstWinForm
+namespace FirstWinForm.DataModels
 {
     // accessiblity public > internal > private
     public class Employee
@@ -18,7 +18,7 @@ namespace FirstWinForm
         {
             get
             {
-                return 
+                return
                  Birthday.ToString().Substring(0, 4) + "/" + Birthday.ToString().Substring(4, 2) + "/" +
                  Birthday.ToString().Substring(6, 2);
             }
