@@ -34,6 +34,7 @@
             listBoxFileData = new ListBox();
             dataGridViewData = new DataGridView();
             buttonExportExcel = new Button();
+            blueButtonExportCsv = new BlueButtonContainer();
             ((System.ComponentModel.ISupportInitialize)dataGridViewData).BeginInit();
             SuspendLayout();
             // 
@@ -94,11 +95,19 @@
             buttonExportExcel.UseVisualStyleBackColor = true;
             buttonExportExcel.Click += buttonExportExcel_Click;
             // 
+            // blueButtonExportCsv
+            // 
+            blueButtonExportCsv.Location = new Point(547, 80);
+            blueButtonExportCsv.Name = "blueButtonExportCsv";
+            blueButtonExportCsv.Size = new Size(229, 80);
+            blueButtonExportCsv.TabIndex = 6;
+            // 
             // FormInternet
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1510, 826);
+            Controls.Add(blueButtonExportCsv);
             Controls.Add(buttonExportExcel);
             Controls.Add(dataGridViewData);
             Controls.Add(listBoxFileData);
@@ -121,5 +130,6 @@
         private ListBox listBoxFileData;
         private DataGridView dataGridViewData;
         private Button buttonExportExcel;
+        private BlueButtonContainer blueButtonExportCsv;
     }
 }

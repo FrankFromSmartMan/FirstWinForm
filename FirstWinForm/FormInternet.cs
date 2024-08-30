@@ -30,6 +30,12 @@ namespace FirstWinForm
                     ((Button)control).Font = new Font(FontFamily.GenericSansSerif, 14);
                 }
             }
+            blueButtonExportCsv.InnerButton.Click += InnerButton_Click;
+        }
+
+        private void InnerButton_Click(object? sender, EventArgs e)
+        {
+            MessageBox.Show("You have clicked export to csv");
         }
 
         private void buttonDownload_Click(object sender, EventArgs e)
@@ -112,7 +118,7 @@ namespace FirstWinForm
                     // 新增一個活頁 (worksheeet)
                     var worksheet = workbook.Worksheets.Add("股票資訊");
                     // 把標頭證券代號,證券名稱,成交股數,成交金額,開盤價,最高價,最低價,收盤價,漲跌價差,成交筆數寫到第一列
-                    List<string> headerNames= [
+                    List<string> headerNames = [
                         "證券代號",
                         "證券名稱",
                         "成交股數",
