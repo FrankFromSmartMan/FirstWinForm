@@ -27,7 +27,7 @@ namespace FirstWinForm
                 if (control is Button)
                 {
                     // (Button)把控制項強轉成按鈕類別。再去改它的Font屬性。
-                    ((Button)control).Font = new Font(FontFamily.GenericSerif, 14);
+                    ((Button)control).Font = new Font(FontFamily.GenericSansSerif, 14);
                 }
             }
         }
@@ -85,8 +85,14 @@ namespace FirstWinForm
                     stockData.StockName = items[1];
                     // 把字串轉成int(整數)或是double(小數點)，透過tryParse來先檢查可不可以轉換型態，不行的預設0
                     stockData.StockTraded = int.TryParse(items[2], out _) ? int.Parse(items[2]) : 0;
+                    stockData.StockAmount = int.TryParse(items[3], out _) ? int.Parse(items[3]) : 0;
+                    stockData.StartAmount = double.TryParse(items[4], out _) ? double.Parse(items[4]) : 0;
                     stockData.HighestAmount = double.TryParse(items[5], out _) ? double.Parse(items[5]) : 0;
+                    stockData.LowestAmount = double.TryParse(items[6], out _) ? double.Parse(items[6]) : 0;
+                    stockData.FinalTradedAmount = double.TryParse(items[7], out _) ? double.Parse(items[7]) : 0;
                     stockData.AmountChanged = double.TryParse(items[8], out _) ? double.Parse(items[8]) : 0;
+                    stockData.TradeCount = int.TryParse(items[9], out _) ? int.Parse(items[9]) : 0;
+
                     stocks.Add(stockData);
                     // 把股票資料加到陣列
                     StockDatas.Add(stockData);
@@ -105,12 +111,24 @@ namespace FirstWinForm
                 {
                     // 新增一個活頁 (worksheeet)
                     var worksheet = workbook.Worksheets.Add("股票資訊");
-                    // 把標頭寫到A1 ~ E1儲存格
-                    worksheet.Cell("A1").Value = "證券代號";
-                    worksheet.Cell("B1").Value = "證券名稱";
-                    worksheet.Cell("C1").Value = "成交股數";
-                    worksheet.Cell("D1").Value = "最高金額";
-                    worksheet.Cell("E1").Value = "漲價跌差";
+                    // 把標頭證券代號,證券名稱,成交股數,成交金額,開盤價,最高價,最低價,收盤價,漲跌價差,成交筆數寫到第一列
+                    List<string> headerNames= [
+                        "證券代號",
+                        "證券名稱",
+                        "成交股數",
+                        "成交金額",
+                        "開盤價",
+                        "最高價",
+                        "最低價",
+                        "收盤價",
+                        "漲跌價差",
+                        "成交筆數"
+                    ];
+                    for (int i = 0; i < headerNames.Count; i++)
+                    {
+                        worksheet.Cell(1, i + 1).Value = headerNames[i];
+                    }
+
                     // 針對股票物件陣列去跑迴圈
                     for (int i = 0; i < StockDatas.Count; i++)
                     {
@@ -120,17 +138,23 @@ namespace FirstWinForm
                         worksheet.Cell(i + 2, 1).Value = stock.ID;
                         worksheet.Cell(i + 2, 2).Value = stock.StockName;
                         worksheet.Cell(i + 2, 3).Value = stock.StockTraded;
-                        worksheet.Cell(i + 2, 4).Value = stock.HighestAmount;
-                        worksheet.Cell(i + 2, 5).Value = stock.AmountChanged;
+                        worksheet.Cell(i + 2, 4).Value = stock.StockAmount;
+                        worksheet.Cell(i + 2, 5).Value = stock.StartAmount;
+                        worksheet.Cell(i + 2, 6).Value = stock.HighestAmount;
+                        worksheet.Cell(i + 2, 7).Value = stock.LowestAmount;
+                        worksheet.Cell(i + 2, 8).Value = stock.FinalTradedAmount;
+                        worksheet.Cell(i + 2, 9).Value = stock.AmountChanged;
+                        worksheet.Cell(i + 2, 10).Value = stock.TradeCount;
+
                         // 根據漲跌條件顯示綠色或紅色
                         if (stock.AmountChanged > 0)
                         {
                             // set to green
-                            worksheet.Cell(i + 2, 5).Style.Font.FontColor = XLColor.Green;
+                            worksheet.Cell(i + 2, 9).Style.Font.FontColor = XLColor.Green;
                         }
                         else
                         {
-                            worksheet.Cell(i + 2, 5).Style.Font.FontColor = XLColor.Red;
+                            worksheet.Cell(i + 2, 9).Style.Font.FontColor = XLColor.Red;
                         }
                     }
                     // 把Excel存起來
