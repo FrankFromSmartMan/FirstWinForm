@@ -65,14 +65,14 @@ namespace FirstWinForm
                         worksheet2.Cell(i + 2, 2).Value = top10[i].Address;
                         worksheet2.Cell(i + 2, 3).Value = top10[i].TotalSpace;
                     }
-                    // 使用區域groupby資料放到不同活頁 (用Select去把Key取出)
-                    var groupByArea = parkingLotAPIResponse.ParkingLots.GroupBy(p => p.AreaName).Select(p => (p.Key));
-                    foreach (var areaName in groupByArea)
+                    // 使用區域groupby資料放到不同活頁
+                    var groupByArea = parkingLotAPIResponse.ParkingLots.GroupBy(p => p.AreaName);
+                    foreach (var group in groupByArea)
                     {
-                        // 根據區域名稱新增活頁
-                        var worksheetByArea = workbook.Worksheets.Add(areaName);
-                        // 用Where去篩選出區域名稱相同的停車場
-                        var parkLotsByArea = parkingLotAPIResponse.ParkingLots.Where(p => p.AreaName == areaName).ToList();
+                        // 根據區域名稱新增活頁 (group.Key為每個分群是依照什麼去分的，也就是區域名稱)
+                        var worksheetByArea = workbook.Worksheets.Add(group.Key);
+                        // 用Where去篩選出區域名稱相同的停車場 (每分群裡面都是停車物件資訊，group.ToList()把這些物件資料轉成陣列)
+                        var parkLotsByArea = group.ToList();
                         for (int i = 0; i < headerNames.Count; i++)
                         {
                             worksheetByArea.Cell(1, i + 1).Value = headerNames[i];
