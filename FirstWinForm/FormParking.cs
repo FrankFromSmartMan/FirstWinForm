@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -41,10 +42,33 @@ namespace FirstWinForm
                 }
                 using (ClosedXML.Excel.XLWorkbook workbook = new ClosedXML.Excel.XLWorkbook())
                 {
-                    workbook.SaveAs("停車場資訊.xlsx");
-                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo() { FileName = "停車場資訊.xlsx", UseShellExecute = true });
-                    
-                };
+                    // handle export
+                    var worksheet = workbook.Worksheets.Add("原始停車資料");
+                    for (int i = 0; i < headerNames.Count; i++)
+                    {
+                        worksheet.Cell(1, i + 1).Value = headerNames[i];
+                    }
+                    worksheet.Cell(2, 1).InsertData(parkingLotAPIResponse.ParkingLots);
+                    var worksheet2 = workbook.Worksheets.Add("停車場統計資料");
+                    var top10 = parkingLotAPIResponse.ParkingLots.OrderByDescending(p => p.TotalSpace).Take(10).ToList();
+                    worksheet2.Cell(1, 1).Value = "停車場名稱";
+                    worksheet2.Cell(1, 2).Value = "地址";
+                    worksheet2.Cell(1, 3).Value = "停車格數量";
+                    for (int i = 0; i < top10.Count; i++)
+                    {
+                        worksheet2.Cell(i + 2, 1).Value = top10[i].ParkName;
+                        worksheet2.Cell(i + 2, 2).Value = top10[i].Address;
+                        worksheet2.Cell(i + 2, 3).Value = top10[i].TotalSpace;
+                    }
+                    workbook.SaveAs("Parklot.xlsx");
+
+                    ProcessStartInfo psi = new ProcessStartInfo()
+                    {
+                        FileName = "Parklot.xlsx",
+                        UseShellExecute = true,
+                    };
+                    System.Diagnostics.Process.Start(psi);
+                }
                 MessageBox.Show("下載成功");
             }
         }
