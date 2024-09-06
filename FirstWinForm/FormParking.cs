@@ -1,5 +1,8 @@
 ﻿using FirstWinForm.DataModels;
 
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +15,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
+using LiveChartsCore.SkiaSharpView.VisualElements;
 
 namespace FirstWinForm
 {
@@ -79,7 +85,7 @@ namespace FirstWinForm
                         }
                         worksheetByArea.Cell(2, 1).InsertData(parkLotsByArea);
                     }
-                    workbook.SaveAs("Parklot.xlsx");
+                    //workbook.SaveAs("Parklot.xlsx");
                     ProcessStartInfo psi = new ProcessStartInfo()
                     {
                         FileName = "Parklot.xlsx",
@@ -87,6 +93,29 @@ namespace FirstWinForm
                     };
                     System.Diagnostics.Process.Start(psi);
                 }
+
+                var groupedByAreaName = parkingLotAPIResponse.ParkingLots.GroupBy(g => g.AreaName);
+                var totalSpacesByAreaName = groupedByAreaName.Select(g => new 
+                { 
+                    areaName = g.Key, // areaName
+                    totalSpaces = g.Sum(p => p.TotalSpace) // totalSpace
+                }).ToList();
+                // 產生圖表 (折線圖)
+                cartesianChart1.Series = new ISeries[]
+                {
+                    new LineSeries<int>
+                    {
+                        Values = totalSpacesByAreaName.Select(t => t.totalSpaces)
+                    },
+                };
+                cartesianChart1.Title = new LabelVisual
+                {
+                    Text = "每個區域的停車場總數量",
+                    TextSize = 25,
+                    Padding = new LiveChartsCore.Drawing.Padding(15),
+                    Paint = new SolidColorPaint(SKColors.DarkSlateGray)
+                };
+
                 MessageBox.Show("下載成功");
             }
         }
