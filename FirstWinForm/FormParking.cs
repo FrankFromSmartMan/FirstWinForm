@@ -146,7 +146,62 @@ namespace FirstWinForm
                         SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray)
                         {
                             StrokeThickness = 2,
-                            PathEffect = new DashEffect(new float[] { 3, 3 })
+                            PathEffect = new DashEffect([3, 3])
+                        }
+                    }
+                ];
+                // groupby停車場名稱->Sum停車格數量->OrderByDescending停車格數量->Take(10)取前10名->ToList轉成陣列 (chained methods/functions)
+                var top10ParkingLots = parkingLotAPIResponse.ParkingLots
+                    .GroupBy(g => g.ParkName)
+                    .Select(g => new
+                    {
+                        parkName = g.Key,
+                        totalSpaces = g.Sum(p => p.TotalSpace),
+                    })
+                    .OrderByDescending(p => p.totalSpaces)
+                    .Take(10)
+                    .ToList();
+                // 顯示直條圖
+                cartesianChart2.Series = 
+                [
+                    new ColumnSeries<int>
+                    {
+                        Values = top10ParkingLots.Select(t => t.totalSpaces).ToList(), // 選取停車格數量
+                    }
+                ];
+                // 設定圖表上方的標題
+                cartesianChart2.Title = new LabelVisual
+                {
+                    Text = "前十名停車位最多的停車場",
+                    TextSize = 25,
+                    Padding = new LiveChartsCore.Drawing.Padding(15),
+                    Paint = new SolidColorPaint(SKColors.DarkSlateGray)
+                };
+                // 設定X軸的資訊
+                cartesianChart2.XAxes =
+                [
+                    new Axis
+                    {
+                        //設定X軸的標籤，使用Select選取停車場名稱，最後用ToList()轉成陣列
+                        Labels = top10ParkingLots.Select(t => t.parkName).ToList(),
+                        Name = "停車場名稱",
+                        TextSize = 12,
+                        LabelsRotation = 45
+                    }
+                ];
+                // 設定Y軸的資訊
+                cartesianChart2.YAxes =
+                [
+                    new Axis
+                    {
+                        Name = "停車位數量",
+                        NamePaint = new SolidColorPaint(SKColors.Red),
+                        LabelsPaint = new SolidColorPaint(SKColors.Green),
+                        TextSize = 20,
+                        SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray)
+                        {
+                            StrokeThickness = 2,
+                            PathEffect = new DashEffect([3, 3])
                         }
                     }
                 ];
