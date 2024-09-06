@@ -206,6 +206,41 @@ namespace FirstWinForm
                         }
                     }
                 ];
+                //pieChart1.Series =
+                //[
+                //    new PieSeries<int>
+                //    {
+                //        Values = new []{ 2 },
+                //        Name = "Income",
+                //    },
+                //    new PieSeries<int>
+                //    {
+                //        Values = new []{ 3 },
+                //        Name = "Expense",
+                //    }
+                //];
+                pieChart1.Series = totalSpacesByAreaName
+                    .OrderByDescending(t => t.totalSpaces)
+                    .Select(t => new PieSeries<int>
+                {
+                    Values = new List<int> { t.totalSpaces },
+                    Name = t.areaName,
+                    DataLabelsPaint = new SolidColorPaint(SKColors.Black),
+                    DataLabelsSize = 22,
+                    // for more information about available positions see:
+                    // https://livecharts.dev/api/2.0.0-rc2/LiveChartsCore.Measure.PolarLabelsPosition
+                    DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                    DataLabelsFormatter = p => t.areaName + ": " + t.totalSpaces
+                })
+                    .ToList();
+                // 設定圖表上方的標題
+                pieChart1.Title = new LabelVisual
+                {
+                    Text = "桃園市停車位數量圓餅圖",
+                    TextSize = 25,
+                    Padding = new LiveChartsCore.Drawing.Padding(15),
+                    Paint = new SolidColorPaint(SKColors.DarkSlateGray)
+                };
                 MessageBox.Show("下載成功");
             }
         }
