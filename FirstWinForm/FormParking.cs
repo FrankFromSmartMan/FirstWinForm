@@ -87,12 +87,12 @@ namespace FirstWinForm
                         worksheetByArea.Cell(2, 1).InsertData(parkLotsByArea);
                     }
                     //workbook.SaveAs("Parklot.xlsx");
-                    ProcessStartInfo psi = new ProcessStartInfo()
-                    {
-                        FileName = "Parklot.xlsx",
-                        UseShellExecute = true,
-                    };
-                    System.Diagnostics.Process.Start(psi);
+                    //ProcessStartInfo psi = new ProcessStartInfo()
+                    //{
+                    //    FileName = "Parklot.xlsx",
+                    //    UseShellExecute = true,
+                    //};
+                    //System.Diagnostics.Process.Start(psi);
                 }
                 // 用區域名稱groupby
                 var groupedByAreaName = parkingLotAPIResponse.ParkingLots.GroupBy(g => g.AreaName);
@@ -104,13 +104,14 @@ namespace FirstWinForm
                     totalSpaces = g.Sum(p => p.TotalSpace) // 停車位數量
                 }).ToList();
                 // 產生圖表 (折線圖) 內容為一個各種Series(表)的陣列
-                cartesianChart1.Series = new ISeries[]
-                {
+                // 原本是 new ISeries[] {...}，這裡使用語法[...] 去簡化，表示一個陣列
+                cartesianChart1.Series =
+                [
                     new LineSeries<int>
                     {
                         Values = totalSpacesByAreaName.Select(t => t.totalSpaces) // 用Select選取總停車格數量
                     },
-                };
+                ];
                 // 設定圖表上方的標題
                 cartesianChart1.Title = new LabelVisual
                 {
@@ -120,8 +121,8 @@ namespace FirstWinForm
                     Paint = new SolidColorPaint(SKColors.DarkSlateGray)
                 };
                 // 設定X軸的資訊
-                cartesianChart1.XAxes = new Axis[]
-                {
+                cartesianChart1.XAxes =
+                [
                     new Axis
                     {
                         //設定X軸的標籤，使用Select選取區域名稱，最後用ToList()轉成陣列
@@ -132,10 +133,10 @@ namespace FirstWinForm
                         TextSize = 16,
                         SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray) { StrokeThickness = 2 }
                     }
-                };
+                ];
                 // 設定Y軸的資訊
-                cartesianChart1.YAxes = new Axis[]
-                {
+                cartesianChart1.YAxes =
+                [
                     new Axis
                     {
                         Name = "停車位數量",
@@ -148,7 +149,7 @@ namespace FirstWinForm
                             PathEffect = new DashEffect(new float[] { 3, 3 })
                         }
                     }
-                };
+                ];
                 MessageBox.Show("下載成功");
             }
         }
