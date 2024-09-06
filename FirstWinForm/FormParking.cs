@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 using LiveChartsCore.SkiaSharpView.VisualElements;
+using LiveChartsCore.SkiaSharpView.Painting.Effects;
 
 namespace FirstWinForm
 {
@@ -93,21 +94,24 @@ namespace FirstWinForm
                     };
                     System.Diagnostics.Process.Start(psi);
                 }
-
+                // 用區域名稱groupby
                 var groupedByAreaName = parkingLotAPIResponse.ParkingLots.GroupBy(g => g.AreaName);
+                // 用Select去選取區域名稱和總停車格數量
+                // new { ... } => 匿名型別 
                 var totalSpacesByAreaName = groupedByAreaName.Select(g => new 
                 { 
-                    areaName = g.Key, // areaName
-                    totalSpaces = g.Sum(p => p.TotalSpace) // totalSpace
+                    areaName = g.Key, // 區域名稱
+                    totalSpaces = g.Sum(p => p.TotalSpace) // 停車位數量
                 }).ToList();
                 // 產生圖表 (折線圖)
                 cartesianChart1.Series = new ISeries[]
                 {
                     new LineSeries<int>
                     {
-                        Values = totalSpacesByAreaName.Select(t => t.totalSpaces)
+                        Values = totalSpacesByAreaName.Select(t => t.totalSpaces) // 用Select選取總停車格數量
                     },
                 };
+                // 設定圖表上方的標題
                 cartesianChart1.Title = new LabelVisual
                 {
                     Text = "每個區域的停車場總數量",
@@ -115,7 +119,35 @@ namespace FirstWinForm
                     Padding = new LiveChartsCore.Drawing.Padding(15),
                     Paint = new SolidColorPaint(SKColors.DarkSlateGray)
                 };
+                cartesianChart1.XAxes = new Axis[]
+                {
+                    new Axis
+                    {
+                        // Use the labels property to define named labels.
+                        Labels = totalSpacesByAreaName.Select(t => t.areaName).ToList(),
+                        Name = "區域名稱",
+                        NamePaint = new SolidColorPaint(SKColors.Black),
+                        LabelsPaint = new SolidColorPaint(SKColors.Blue),
+                        TextSize = 16,
+                        SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray) { StrokeThickness = 2 }
+                    }
+                };
 
+                cartesianChart1.YAxes = new Axis[]
+                {
+                    new Axis
+                    {
+                        Name = "停車位數量",
+                        NamePaint = new SolidColorPaint(SKColors.Red),
+                        LabelsPaint = new SolidColorPaint(SKColors.Green),
+                        TextSize = 20,
+                        SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray)
+                        {
+                            StrokeThickness = 2,
+                            PathEffect = new DashEffect(new float[] { 3, 3 })
+                        }
+                    }
+                };
                 MessageBox.Show("下載成功");
             }
         }
