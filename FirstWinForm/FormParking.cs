@@ -103,7 +103,7 @@ namespace FirstWinForm
                     areaName = g.Key, // 區域名稱
                     totalSpaces = g.Sum(p => p.TotalSpace) // 停車位數量
                 }).ToList();
-                // 產生圖表 (折線圖)
+                // 產生圖表 (折線圖) 內容為一個各種Series(表)的陣列
                 cartesianChart1.Series = new ISeries[]
                 {
                     new LineSeries<int>
@@ -119,11 +119,12 @@ namespace FirstWinForm
                     Padding = new LiveChartsCore.Drawing.Padding(15),
                     Paint = new SolidColorPaint(SKColors.DarkSlateGray)
                 };
+                // 設定X軸的資訊
                 cartesianChart1.XAxes = new Axis[]
                 {
                     new Axis
                     {
-                        // Use the labels property to define named labels.
+                        //設定X軸的標籤，使用Select選取區域名稱，最後用ToList()轉成陣列
                         Labels = totalSpacesByAreaName.Select(t => t.areaName).ToList(),
                         Name = "區域名稱",
                         NamePaint = new SolidColorPaint(SKColors.Black),
@@ -132,7 +133,7 @@ namespace FirstWinForm
                         SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray) { StrokeThickness = 2 }
                     }
                 };
-
+                // 設定Y軸的資訊
                 cartesianChart1.YAxes = new Axis[]
                 {
                     new Axis
