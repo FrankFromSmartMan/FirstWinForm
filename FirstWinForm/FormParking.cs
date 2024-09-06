@@ -152,18 +152,19 @@ namespace FirstWinForm
                 ];
                 // groupby停車場名稱->Sum停車格數量->OrderByDescending停車格數量->Take(10)取前10名->ToList轉成陣列 (chained methods/functions)
                 var top10ParkingLots = parkingLotAPIResponse.ParkingLots
-                    .GroupBy(g => g.ParkName)
-                    .Select(g => new
+                    .GroupBy(g => g.ParkName) // 用停車場名稱去groupby
+                    .Select(g => new // 用SELECT與匿名型別 new { ... } 語法去抓取自訂的值。
                     {
                         parkName = g.Key,
                         totalSpaces = g.Sum(p => p.TotalSpace),
                     })
-                    .OrderByDescending(p => p.totalSpaces)
-                    .Take(10)
-                    .ToList();
+                    .OrderByDescending(p => p.totalSpaces) // 大到小排序
+                    .Take(10) // 取得前10筆
+                    .ToList(); // 轉成陣列
                 // 顯示直條圖
                 cartesianChart2.Series = 
                 [
+                    // 設定直條圖物件 (值是int整數型態)
                     new ColumnSeries<int>
                     {
                         Values = top10ParkingLots.Select(t => t.totalSpaces).ToList(), // 選取停車格數量
@@ -185,8 +186,8 @@ namespace FirstWinForm
                         //設定X軸的標籤，使用Select選取停車場名稱，最後用ToList()轉成陣列
                         Labels = top10ParkingLots.Select(t => t.parkName).ToList(),
                         Name = "停車場名稱",
-                        TextSize = 12,
-                        LabelsRotation = 45
+                        TextSize = 16,
+                        LabelsRotation = 45 // 各停車場名稱旋轉45度，才不會太擠
                     }
                 ];
                 // 設定Y軸的資訊
