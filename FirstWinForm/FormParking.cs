@@ -206,23 +206,13 @@ namespace FirstWinForm
                         }
                     }
                 ];
-                //pieChart1.Series =
-                //[
-                //    new PieSeries<int>
-                //    {
-                //        Values = new []{ 2 },
-                //        Name = "Income",
-                //    },
-                //    new PieSeries<int>
-                //    {
-                //        Values = new []{ 3 },
-                //        Name = "Expense",
-                //    }
-                //];
+                // 產生圓餅圖: 先用停車場數量大到小排序，再用Select選取區域名稱和總停車格數量
                 pieChart1.Series = totalSpacesByAreaName
                     .OrderByDescending(t => t.totalSpaces)
+                    // 這裡每個Select都要建一個PieSeries物件
                     .Select(t => new PieSeries<int>
                 {
+                    // 這裡是圓餅圖的值，這裡是停車位數量
                     Values = new List<int> { t.totalSpaces },
                     Name = t.areaName,
                     DataLabelsPaint = new SolidColorPaint(SKColors.Black),
@@ -230,6 +220,7 @@ namespace FirstWinForm
                     // for more information about available positions see:
                     // https://livecharts.dev/api/2.0.0-rc2/LiveChartsCore.Measure.PolarLabelsPosition
                     DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                    // 設定圓餅圖上的標籤格式=區域名稱: 停車場數量
                     DataLabelsFormatter = p => t.areaName + ": " + t.totalSpaces
                 })
                     .ToList();
