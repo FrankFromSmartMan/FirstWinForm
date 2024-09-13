@@ -67,6 +67,13 @@ namespace FirstWinForm
                     Labels = data.Select(x => x.Date.ToString("yyyy/MM/dd")).ToArray()
                 }
             ];
+            cartesianChart1.Title = new LiveChartsCore.SkiaSharpView.VisualElements.LabelVisual
+            {
+                Text = "K線圖範例",
+                TextSize = 25,
+                Padding = new LiveChartsCore.Drawing.Padding(15),
+                Paint = new SolidColorPaint(SKColors.DarkSlateGray)
+            };
         }
     }
 }
