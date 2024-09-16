@@ -29,6 +29,45 @@ namespace FirstWinForm
             InitializeComponent();
             blueButtonContainer1.InnerButton.Click += InnerButton_Click;
             blueButtonContainer1.InnerButton.Text = "下載資料";
+
+
+            string[] types = ["礦石", "武器", "裝備", "補給品", "掉落物"];
+            int[] values = [9490, 2370, 2040, 1210, 9995];
+            List<ISeries> pieCharts = [];
+            string[] lighterColors = [ "#ffccd0", "#ffdbb5", "#fff9cc", "#b1daff", "#e5c5ff" ]; // 最淺的顏色清單
+            string[] colors = ["#ff98a1", "#ffb482", "#fff49d", "#82c2ff", "#d395ff"]; // 中等顏色清單
+            string[] darkerColors = ["#ff8989", "#ffba84", "#eeffac", "#8cb6dd", "#8f52db"]; // 最深的顏色清單
+            for (int i = 0; i < types.Length; i++)
+            {
+                var type = i + "-->" + types[i]; // 種類
+                var value = values[i]; // 數值
+                int ratio = (int)((value / (decimal)values.Sum()) * 100); // 比例 (先算出小數點再轉乘整數)
+                pieCharts.Add(new PieSeries<int>
+                {
+                    Name = type, // 區域名稱 (滑鼠移過去的標題)
+                    Values = [value], // 圓餅數值大小
+                    // 圓餅圖的填充顏色 (這裡是用漸層顏色，可以塞多個顏色)
+                    Fill = new RadialGradientPaint([
+                            SKColor.Parse(lighterColors[i]),
+                            SKColor.Parse(colors[i]),
+                            SKColor.Parse(darkerColors[i])
+                        ]),
+                    // 圓餅圖的標籤顏色為黑色
+                    DataLabelsPaint = new SolidColorPaint(SKColors.Black),
+                    // 圓餅圖上的標籤格式=區域名稱: 停車場數量
+                    DataLabelsFormatter = x => $"[Labe] {type}: ${value:n0}。({ratio}%)",
+                    // 滑鼠游標移過去顯示的明細
+                    ToolTipLabelFormatter = x => $"[Tooltip] ${value:n0}。({ratio}%)",
+                    // 圓餅圖的推出去距離
+                    Pushout = 10,
+                    // 圓餅圖的外框線樣式
+                    Stroke = new SolidColorPaint(SKColors.DarkBlue, strokeWidth: 2),
+                    // 外層圓餅圖的半徑偏移量
+                    OuterRadiusOffset = i * 50
+                });
+            }
+            pieChart1.Series = pieCharts;
+
         }
 
         private void InnerButton_Click(object? sender, EventArgs e)

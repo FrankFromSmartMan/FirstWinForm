@@ -66,7 +66,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1139, 1055);
+            tabControl1.Size = new Size(718, 528);
             tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -76,7 +76,7 @@
             tabPage1.Location = new Point(4, 46);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1131, 1005);
+            tabPage1.Size = new Size(867, 497);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "表格顯示";
             tabPage1.UseVisualStyleBackColor = true;
@@ -131,7 +131,7 @@
             tabPage4.Controls.Add(pieChart1);
             tabPage4.Location = new Point(4, 46);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(1131, 1005);
+            tabPage4.Size = new Size(710, 478);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "圓餅圖";
             tabPage4.UseVisualStyleBackColor = true;
@@ -146,7 +146,7 @@
             pieChart1.MaxValue = null;
             pieChart1.MinValue = 0D;
             pieChart1.Name = "pieChart1";
-            pieChart1.Size = new Size(1131, 1005);
+            pieChart1.Size = new Size(710, 478);
             pieChart1.TabIndex = 0;
             pieChart1.Total = null;
             // 
@@ -154,7 +154,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1139, 1055);
+            ClientSize = new Size(718, 528);
             Controls.Add(tabControl1);
             Name = "FormParking";
             StartPosition = FormStartPosition.CenterScreen;
