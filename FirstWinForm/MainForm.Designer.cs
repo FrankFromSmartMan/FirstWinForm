@@ -38,8 +38,11 @@
             label2 = new Label();
             dateTimePickerBirthday = new DateTimePicker();
             labelID = new Label();
-            buttonUpdate = new Button();
+            buttonSave = new Button();
             numericUpDownID = new NumericUpDown();
+            buttonDrop = new Button();
+            buttonClear = new Button();
+            buttonDelete = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewScoreData).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownID).BeginInit();
             SuspendLayout();
@@ -135,15 +138,15 @@
             labelID.TabIndex = 9;
             labelID.Text = "ID";
             // 
-            // buttonUpdate
+            // buttonSave
             // 
-            buttonUpdate.Location = new Point(540, 194);
-            buttonUpdate.Name = "buttonUpdate";
-            buttonUpdate.Size = new Size(94, 29);
-            buttonUpdate.TabIndex = 11;
-            buttonUpdate.Text = "Update";
-            buttonUpdate.UseVisualStyleBackColor = true;
-            buttonUpdate.Click += buttonUpdate_Click;
+            buttonSave.Location = new Point(540, 194);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new Size(94, 29);
+            buttonSave.TabIndex = 11;
+            buttonSave.Text = "Save";
+            buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += buttonSave_Click;
             // 
             // numericUpDownID
             // 
@@ -153,13 +156,46 @@
             numericUpDownID.Size = new Size(184, 27);
             numericUpDownID.TabIndex = 12;
             // 
+            // buttonDrop
+            // 
+            buttonDrop.Location = new Point(296, 26);
+            buttonDrop.Name = "buttonDrop";
+            buttonDrop.Size = new Size(94, 29);
+            buttonDrop.TabIndex = 13;
+            buttonDrop.Text = "Drop DB";
+            buttonDrop.UseVisualStyleBackColor = true;
+            buttonDrop.Click += buttonDrop_Click;
+            // 
+            // buttonClear
+            // 
+            buttonClear.Location = new Point(640, 194);
+            buttonClear.Name = "buttonClear";
+            buttonClear.Size = new Size(94, 29);
+            buttonClear.TabIndex = 15;
+            buttonClear.Text = "Clear";
+            buttonClear.UseVisualStyleBackColor = true;
+            buttonClear.Click += buttonClear_Click;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Location = new Point(640, 229);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(94, 29);
+            buttonDelete.TabIndex = 16;
+            buttonDelete.Text = "Delete";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonDelete);
+            Controls.Add(buttonClear);
+            Controls.Add(buttonDrop);
             Controls.Add(numericUpDownID);
-            Controls.Add(buttonUpdate);
+            Controls.Add(buttonSave);
             Controls.Add(labelID);
             Controls.Add(dateTimePickerBirthday);
             Controls.Add(label2);
@@ -190,7 +226,10 @@
         private Label label2;
         private DateTimePicker dateTimePickerBirthday;
         private Label labelID;
-        private Button buttonUpdate;
+        private Button buttonSave;
         private NumericUpDown numericUpDownID;
+        private Button buttonDrop;
+        private Button buttonClear;
+        private Button buttonDelete;
     }
 }

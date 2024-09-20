@@ -20,12 +20,9 @@ namespace FirstWinForm
         void InitControls()
         {
             StartPosition = FormStartPosition.CenterScreen;
-            // Set the maximum and minimum values of the NumericUpDown control
             numericUpDownID.Maximum = int.MaxValue;
-            // Set the format of the DateTimePicker control
             dateTimePickerBirthday.Format = DateTimePickerFormat.Custom;
             dateTimePickerBirthday.CustomFormat = "yyyy-MM-dd";
-            // Register the event of clicking the cell of the DataGridView
             dataGridViewScoreData.CellMouseClick += DataGridViewScoreData_CellMouseClick;
         }
         private void DataGridViewScoreData_CellMouseClick(object? sender, DataGridViewCellMouseEventArgs e)
@@ -76,9 +73,14 @@ namespace FirstWinForm
                     int count = conn.ExecuteScalar<int>("SELECT COUNT(*) FROM Users");
                     if (count == 0)
                     {
-                        conn.Execute("INSERT INTO Users (Name, Birthday) VALUES (@Name, @Birthday)", list);
+                        // transaction
+                        using (var transaction = conn.BeginTransaction())
+                        {
+                            conn.Execute("INSERT INTO Users (Name, Birthday) VALUES (@Name, @Birthday)", list);
+                            transaction.Commit();
+                            MessageBox.Show("Data inserted successfully!");
+                        }
                     }
-
                     conn.Close();
                 }
             }
@@ -96,7 +98,7 @@ namespace FirstWinForm
                 {
                     conn.Open();
                     // Create a table of users if it does not exist using dapper
-                    conn.Execute("CREATE TABLE IF NOT EXISTS Users (Id INTEGER PRIMARY KEY, Name TEXT, Birthday DATE)");
+                    conn.Execute("CREATE TABLE IF NOT EXISTS Users (Id INTEGER PRIMARY KEY, Name TEXT, Birthday TEXT)");
                     conn.Close();
                     MessageBox.Show("Table created successfully!");
                 }
@@ -147,18 +149,80 @@ namespace FirstWinForm
             }
         }
 
-        private void buttonUpdate_Click(object sender, EventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e)
         {
-            var user = new User(id: (int)numericUpDownID.Value, name: textBoxName.Text, birthday: dateTimePickerBirthday.Value);
+            int id = (int)numericUpDownID.Value;
+
+
             try
             {
                 using (var conn = new System.Data.SQLite.SQLiteConnection(sqliteConnString))
                 {
                     conn.Open();
-                    // Update the user using dapper
-                    conn.Execute("UPDATE Users SET Name = @Name, Birthday = @Birthday WHERE Id = @Id", user);
+                    if (id > 0)
+                    {
+                        var user = new User(id: id, name: textBoxName.Text, birthday: dateTimePickerBirthday.Value);
+                        // Update the user using dapper
+                        conn.Execute("UPDATE Users SET Name = @Name, Birthday = @Birthday WHERE Id = @Id", user);
+                        MessageBox.Show("User updated successfully!");
+                    }
+                    else
+                    {
+                        conn.Execute("INSERT INTO Users (Name, Birthday) VALUES (@Name, @Birthday)", new { Name = textBoxName.Text, Birthday = dateTimePickerBirthday.Value });
+                        MessageBox.Show("User inserted successfully!");
+                    }
                     conn.Close();
-                    MessageBox.Show("User updated successfully!");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "---" + ex.StackTrace);
+            }
+        }
+
+        private void buttonDrop_Click(object sender, EventArgs e)
+        {
+            // drop table users
+            try
+            {
+                using (var conn = new System.Data.SQLite.SQLiteConnection(sqliteConnString))
+                {
+                    conn.Open();
+                    // Drop the table users using dapper
+                    conn.Execute("DROP TABLE Users");
+                    conn.Close();
+                    MessageBox.Show("Table dropped successfully!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "---" + ex.StackTrace);
+            }
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            numericUpDownID.Value = 0;
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            int id = (int)numericUpDownID.Value;
+            if (id == 0)
+            {
+                MessageBox.Show("Please select a user to delete!");
+                return;
+            }
+            try
+            {
+                using (var conn = new System.Data.SQLite.SQLiteConnection(sqliteConnString))
+                {
+                    conn.Open();
+                    // Delete the user using dapper
+                    conn.Execute("DELETE FROM Users WHERE Id = @Id", new { Id = id });
+                    conn.Close();
+                    MessageBox.Show("User deleted successfully!");
                 }
             }
             catch (Exception ex)
@@ -172,6 +236,7 @@ namespace FirstWinForm
         public int Id { get; set; }
         public string Name { get; set; } = "";
         public DateTime Birthday { get; set; }
+        // this empty constructor is for dapper
         public User()
         {
 
