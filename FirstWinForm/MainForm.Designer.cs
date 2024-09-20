@@ -146,7 +146,7 @@
             buttonSave.TabIndex = 11;
             buttonSave.Text = "Save";
             buttonSave.UseVisualStyleBackColor = true;
-            buttonSave.Click += buttonSave_Click;
+            buttonSave.Click += ButtonSave_Click;
             // 
             // numericUpDownID
             // 
@@ -164,7 +164,7 @@
             buttonDrop.TabIndex = 13;
             buttonDrop.Text = "Drop DB";
             buttonDrop.UseVisualStyleBackColor = true;
-            buttonDrop.Click += buttonDrop_Click;
+            buttonDrop.Click += ButtonDrop_Click;
             // 
             // buttonClear
             // 
@@ -174,7 +174,7 @@
             buttonClear.TabIndex = 15;
             buttonClear.Text = "Clear";
             buttonClear.UseVisualStyleBackColor = true;
-            buttonClear.Click += buttonClear_Click;
+            buttonClear.Click += ButtonClear_Click;
             // 
             // buttonDelete
             // 
@@ -184,7 +184,7 @@
             buttonDelete.TabIndex = 16;
             buttonDelete.Text = "Delete";
             buttonDelete.UseVisualStyleBackColor = true;
-            buttonDelete.Click += buttonDelete_Click;
+            buttonDelete.Click += ButtonDelete_Click;
             // 
             // MainForm
             // 

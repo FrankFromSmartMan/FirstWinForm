@@ -6,12 +6,11 @@ namespace FirstWinForm
 
     public partial class MainForm : Form
     {
-        // The name of the SQLite database file
         readonly string sqliteFileName = "MyDatabase.db";
-        // The connection string of the SQLite database
-        readonly string sqliteConnString = "Data Source=MyDatabase.db";
+        readonly string sqliteConnString;
         public MainForm()
         {
+            sqliteConnString = $"Data Source={sqliteFileName}";
             InitializeComponent();
             CreateDocument();
             InitControls();
@@ -27,10 +26,11 @@ namespace FirstWinForm
         }
         private void DataGridViewScoreData_CellMouseClick(object? sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            int rowIndex = e.RowIndex;
+            if (rowIndex >= 0)
             {
                 // Set the value of the NumericUpDown control
-                numericUpDownID.Value = (int)dataGridViewScoreData.Rows[e.RowIndex].Cells[0].Value;
+                numericUpDownID.Value = (int)dataGridViewScoreData.Rows[rowIndex].Cells[0].Value;
                 // fetch single user from sqlite
                 using (var conn = new System.Data.SQLite.SQLiteConnection(sqliteConnString))
                 {
@@ -149,11 +149,9 @@ namespace FirstWinForm
             }
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
             int id = (int)numericUpDownID.Value;
-
-
             try
             {
                 using (var conn = new System.Data.SQLite.SQLiteConnection(sqliteConnString))
@@ -172,7 +170,6 @@ namespace FirstWinForm
                         MessageBox.Show("User inserted successfully!");
                     }
                     conn.Close();
-
                 }
             }
             catch (Exception ex)
@@ -181,7 +178,7 @@ namespace FirstWinForm
             }
         }
 
-        private void buttonDrop_Click(object sender, EventArgs e)
+        private void ButtonDrop_Click(object sender, EventArgs e)
         {
             // drop table users
             try
@@ -201,12 +198,12 @@ namespace FirstWinForm
             }
         }
 
-        private void buttonClear_Click(object sender, EventArgs e)
+        private void ButtonClear_Click(object sender, EventArgs e)
         {
             numericUpDownID.Value = 0;
         }
 
-        private void buttonDelete_Click(object sender, EventArgs e)
+        private void ButtonDelete_Click(object sender, EventArgs e)
         {
             int id = (int)numericUpDownID.Value;
             if (id == 0)
