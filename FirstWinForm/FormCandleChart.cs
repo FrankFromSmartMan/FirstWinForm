@@ -77,6 +77,7 @@ namespace FirstWinForm
                 Padding = new LiveChartsCore.Drawing.Padding(15),
                 Paint = new LiveChartsCore.SkiaSharpView.Painting.SolidColorPaint(SkiaSharp.SKColors.DarkSlateGray)
             };
+            return;
             QuestPDF.Fluent.Document.Create(container => 
             { 
                 container.Page(page => 
