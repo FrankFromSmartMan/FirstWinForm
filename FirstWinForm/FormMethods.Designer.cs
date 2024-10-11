@@ -38,6 +38,8 @@
             buttonThreeParams = new Button();
             buttonOptionalParams = new Button();
             buttonNamedParams = new Button();
+            buttonDateTimeExtension = new Button();
+            buttonListExtension = new Button();
             SuspendLayout();
             // 
             // label1
@@ -66,9 +68,9 @@
             label3.Font = new Font("Segoe UI", 18F);
             label3.Location = new Point(12, 205);
             label3.Name = "label3";
-            label3.Size = new Size(138, 41);
+            label3.Size = new Size(289, 82);
             label3.TabIndex = 2;
-            label3.Text = "擴充方法";
+            label3.Text = "擴充方法\r\n(Extension methods)\r\n";
             // 
             // label4
             // 
@@ -146,11 +148,34 @@
             buttonNamedParams.UseVisualStyleBackColor = true;
             buttonNamedParams.Click += buttonNamedParams_Click;
             // 
+            // buttonDateTimeExtension
+            // 
+            buttonDateTimeExtension.Font = new Font("Segoe UI", 18F);
+            buttonDateTimeExtension.Location = new Point(324, 188);
+            buttonDateTimeExtension.Name = "buttonDateTimeExtension";
+            buttonDateTimeExtension.Size = new Size(215, 80);
+            buttonDateTimeExtension.TabIndex = 10;
+            buttonDateTimeExtension.Text = "時間擴充";
+            buttonDateTimeExtension.UseVisualStyleBackColor = true;
+            buttonDateTimeExtension.Click += buttonDateTimeExtension_Click;
+            // 
+            // buttonListExtension
+            // 
+            buttonListExtension.Font = new Font("Segoe UI", 18F);
+            buttonListExtension.Location = new Point(545, 188);
+            buttonListExtension.Name = "buttonListExtension";
+            buttonListExtension.Size = new Size(270, 80);
+            buttonListExtension.TabIndex = 11;
+            buttonListExtension.Text = "陣列擴充";
+            buttonListExtension.UseVisualStyleBackColor = true;
+            // 
             // FormMethods
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1092, 450);
+            Controls.Add(buttonListExtension);
+            Controls.Add(buttonDateTimeExtension);
             Controls.Add(buttonNamedParams);
             Controls.Add(buttonOptionalParams);
             Controls.Add(buttonThreeParams);
@@ -179,5 +204,7 @@
         private Button buttonThreeParams;
         private Button buttonOptionalParams;
         private Button buttonNamedParams;
+        private Button buttonDateTimeExtension;
+        private Button buttonListExtension;
     }
 }

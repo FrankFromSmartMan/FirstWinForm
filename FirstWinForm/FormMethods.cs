@@ -61,9 +61,17 @@ namespace FirstWinForm
         private void buttonNamedParams_Click(object sender, EventArgs e)
         {
             MyMessage myMessage = new MyMessage();
-            myMessage.PrintMyMessage(isShowTime: false, 
+            myMessage.PrintMyMessage(isShowTime: false,
                                      level: MessageLevel.EndOfTheWorld,
                                      message: "具名參數!!!");
+        }
+
+        private void buttonDateTimeExtension_Click(object sender, EventArgs e)
+        {
+            DateTime taiwanNow = DateTime.Now;
+            string formattedTime = taiwanNow.ToTaiwan();
+            // 民國113年10月11日 (星期五)
+            MessageBox.Show("台灣格式化時間 --> " + formattedTime);
         }
     }
 }

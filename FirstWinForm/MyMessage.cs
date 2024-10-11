@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FirstWinForm
 {
-    // 列舉 (好處:可以讓呼叫者去用點的方式選擇)
+    // 層級的列舉 (好處:可以讓呼叫者去用點的方式選擇)
     public enum MessageLevel
     {
         Info,
@@ -25,13 +25,18 @@ namespace FirstWinForm
         {
             MessageBox.Show(message);
         }
-        public void PrintMyMessage(string message, bool isShowTime, MessageLevel level = MessageLevel.Info)
+        // 可以接受三個參數，isShowTime代表要不要顯示時間，預設level為Info(為選擇性參數)
+        public void PrintMyMessage(string message, 
+                                   bool isShowTime, 
+                                   MessageLevel level = MessageLevel.Info)
         {
+            // 格式化時間
             string formattedTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
             if (isShowTime == true)
             {
                 message = formattedTime + " " + message;
             }
+            // 層級判斷
             string severity = "Info";
             if (level == MessageLevel.Warning)
             {
