@@ -73,5 +73,23 @@ namespace FirstWinForm
             // 民國113年10月11日 (星期五)
             MessageBox.Show("台灣格式化時間 --> " + formattedTime);
         }
+
+        private void buttonCreateTree_Click(object sender, EventArgs e)
+        {
+            var myNode = treeViewFolders.Nodes.Add("我的節點");
+            CreateTree(Environment.CurrentDirectory, myNode);
+
+        }
+        void CreateTree(string dir, TreeNode currentNode)
+        {
+            foreach (var directory in System.IO.Directory.GetDirectories(dir))
+            {
+                var node = currentNode.Nodes.Add(directory);
+                if (System.IO.Directory.GetDirectories(directory).Length > 0)
+                {
+                    CreateTree(directory, node);
+                }
+            }
+        }
     }
 }

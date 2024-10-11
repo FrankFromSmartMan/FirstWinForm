@@ -39,7 +39,8 @@
             buttonOptionalParams = new Button();
             buttonNamedParams = new Button();
             buttonDateTimeExtension = new Button();
-            buttonListExtension = new Button();
+            buttonCreateTree = new Button();
+            treeViewFolders = new TreeView();
             SuspendLayout();
             // 
             // label1
@@ -151,30 +152,39 @@
             // buttonDateTimeExtension
             // 
             buttonDateTimeExtension.Font = new Font("Segoe UI", 18F);
-            buttonDateTimeExtension.Location = new Point(324, 188);
+            buttonDateTimeExtension.Location = new Point(445, 188);
             buttonDateTimeExtension.Name = "buttonDateTimeExtension";
-            buttonDateTimeExtension.Size = new Size(215, 80);
+            buttonDateTimeExtension.Size = new Size(270, 80);
             buttonDateTimeExtension.TabIndex = 10;
             buttonDateTimeExtension.Text = "時間擴充";
             buttonDateTimeExtension.UseVisualStyleBackColor = true;
             buttonDateTimeExtension.Click += buttonDateTimeExtension_Click;
             // 
-            // buttonListExtension
+            // buttonCreateTree
             // 
-            buttonListExtension.Font = new Font("Segoe UI", 18F);
-            buttonListExtension.Location = new Point(545, 188);
-            buttonListExtension.Name = "buttonListExtension";
-            buttonListExtension.Size = new Size(270, 80);
-            buttonListExtension.TabIndex = 11;
-            buttonListExtension.Text = "陣列擴充";
-            buttonListExtension.UseVisualStyleBackColor = true;
+            buttonCreateTree.Font = new Font("Segoe UI", 18F);
+            buttonCreateTree.Location = new Point(12, 349);
+            buttonCreateTree.Name = "buttonCreateTree";
+            buttonCreateTree.Size = new Size(256, 80);
+            buttonCreateTree.TabIndex = 11;
+            buttonCreateTree.Text = "產出資料夾結構";
+            buttonCreateTree.UseVisualStyleBackColor = true;
+            buttonCreateTree.Click += buttonCreateTree_Click;
+            // 
+            // treeViewFolders
+            // 
+            treeViewFolders.Location = new Point(326, 308);
+            treeViewFolders.Name = "treeViewFolders";
+            treeViewFolders.Size = new Size(709, 282);
+            treeViewFolders.TabIndex = 12;
             // 
             // FormMethods
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1092, 450);
-            Controls.Add(buttonListExtension);
+            ClientSize = new Size(1092, 623);
+            Controls.Add(treeViewFolders);
+            Controls.Add(buttonCreateTree);
             Controls.Add(buttonDateTimeExtension);
             Controls.Add(buttonNamedParams);
             Controls.Add(buttonOptionalParams);
@@ -205,6 +215,7 @@
         private Button buttonOptionalParams;
         private Button buttonNamedParams;
         private Button buttonDateTimeExtension;
-        private Button buttonListExtension;
+        private Button buttonCreateTree;
+        private TreeView treeViewFolders;
     }
 }
