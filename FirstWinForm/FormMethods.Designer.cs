@@ -35,6 +35,9 @@
             buttonInScope = new Button();
             buttonInClass = new Button();
             buttonNewClass = new Button();
+            buttonThreeParams = new Button();
+            buttonOptionalParams = new Button();
+            buttonNamedParams = new Button();
             SuspendLayout();
             // 
             // label1
@@ -71,7 +74,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 18F);
-            label4.Location = new Point(12, 284);
+            label4.Location = new Point(12, 293);
             label4.Name = "label4";
             label4.Size = new Size(138, 41);
             label4.TabIndex = 3;
@@ -110,11 +113,47 @@
             buttonNewClass.UseVisualStyleBackColor = true;
             buttonNewClass.Click += buttonNewClass_Click;
             // 
+            // buttonThreeParams
+            // 
+            buttonThreeParams.Font = new Font("Segoe UI", 18F);
+            buttonThreeParams.Location = new Point(214, 100);
+            buttonThreeParams.Name = "buttonThreeParams";
+            buttonThreeParams.Size = new Size(215, 80);
+            buttonThreeParams.TabIndex = 7;
+            buttonThreeParams.Text = "三個參數";
+            buttonThreeParams.UseVisualStyleBackColor = true;
+            buttonThreeParams.Click += buttonThreeParams_Click;
+            // 
+            // buttonOptionalParams
+            // 
+            buttonOptionalParams.Font = new Font("Segoe UI", 18F);
+            buttonOptionalParams.Location = new Point(445, 102);
+            buttonOptionalParams.Name = "buttonOptionalParams";
+            buttonOptionalParams.Size = new Size(270, 80);
+            buttonOptionalParams.TabIndex = 8;
+            buttonOptionalParams.Text = "選擇性參數";
+            buttonOptionalParams.UseVisualStyleBackColor = true;
+            buttonOptionalParams.Click += buttonOptionalParams_Click;
+            // 
+            // buttonNamedParams
+            // 
+            buttonNamedParams.Font = new Font("Segoe UI", 18F);
+            buttonNamedParams.Location = new Point(731, 102);
+            buttonNamedParams.Name = "buttonNamedParams";
+            buttonNamedParams.Size = new Size(225, 80);
+            buttonNamedParams.TabIndex = 9;
+            buttonNamedParams.Text = "具名參數";
+            buttonNamedParams.UseVisualStyleBackColor = true;
+            buttonNamedParams.Click += buttonNamedParams_Click;
+            // 
             // FormMethods
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1092, 450);
+            Controls.Add(buttonNamedParams);
+            Controls.Add(buttonOptionalParams);
+            Controls.Add(buttonThreeParams);
             Controls.Add(buttonNewClass);
             Controls.Add(buttonInClass);
             Controls.Add(buttonInScope);
@@ -137,5 +176,8 @@
         private Button buttonInScope;
         private Button buttonInClass;
         private Button buttonNewClass;
+        private Button buttonThreeParams;
+        private Button buttonOptionalParams;
+        private Button buttonNamedParams;
     }
 }

@@ -44,5 +44,26 @@ namespace FirstWinForm
             MyMessage myMessage = new MyMessage();
             myMessage.PrintMyMessage();
         }
+
+        private void buttonThreeParams_Click(object sender, EventArgs e)
+        {
+            MyMessage myMessage = new MyMessage();
+            //myMessage.PrintMyMessage("自訂的方法 :)");
+            myMessage.PrintMyMessage("我的自訂訊息", true, MessageLevel.Warning);
+        }
+
+        private void buttonOptionalParams_Click(object sender, EventArgs e)
+        {
+            MyMessage myMessage = new MyMessage();
+            myMessage.PrintMyMessage("我的自訂訊息", true);
+        }
+
+        private void buttonNamedParams_Click(object sender, EventArgs e)
+        {
+            MyMessage myMessage = new MyMessage();
+            myMessage.PrintMyMessage(isShowTime: false, 
+                                     level: MessageLevel.EndOfTheWorld,
+                                     message: "具名參數!!!");
+        }
     }
 }
