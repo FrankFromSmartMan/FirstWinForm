@@ -77,14 +77,18 @@ namespace FirstWinForm
         private void buttonCreateTree_Click(object sender, EventArgs e)
         {
             var myNode = treeViewFolders.Nodes.Add("我的節點");
+            // 從目前的目錄開始建立樹狀圖
             CreateTree(Environment.CurrentDirectory, myNode);
 
         }
+        // 建立資料夾樹狀圖 (參數: 目錄, 當前節點)
         void CreateTree(string dir, TreeNode currentNode)
         {
+            // 跑迴圈去看所有資料夾
             foreach (var directory in System.IO.Directory.GetDirectories(dir))
             {
                 var node = currentNode.Nodes.Add(directory);
+                // 若底下還有資料夾，繼續往下長
                 if (System.IO.Directory.GetDirectories(directory).Length > 0)
                 {
                     CreateTree(directory, node);
